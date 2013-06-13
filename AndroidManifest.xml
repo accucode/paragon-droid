@@ -1,0 +1,208 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kodemore.stub"
+    android:versionCode="1"
+    android:versionName="1.0" 
+    >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" 
+ />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
+    <application
+        android:name=".MyApplication"
+        android:icon="@drawable/ic_launcher"
+        android:label="KodeMore Stub"
+        android:theme="@style/AppTheme" 
+        android:debuggable="true"
+        >
+        
+        <activity
+            android:name=".ui.MySplashActivity"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.kodemore.stub.ui.MyMainActivity" />
+        <activity android:name="com.kodemore.stub.ui.MyPreferencesActivity" />
+
+        <activity android:name="com.kodemore.test.TyAbstractFileActivity" />
+        <activity android:name="com.kodemore.test.TyAbstractPreferencesActivity" />
+        <activity android:name="com.kodemore.test.TyAcraTestActivity" />
+        <activity android:name="com.kodemore.test.TyActivityNameActivity" />
+        <activity android:name="com.kodemore.test.TyAlertActivity" />
+        <activity android:name="com.kodemore.test.TyAndroidIdActivity" />
+        <activity android:name="com.kodemore.test.TyAnimalListActivity" />
+        <activity android:name="com.kodemore.test.TyAnimalPickerActivity" />
+        <activity android:name="com.kodemore.test.TyAnimalPickerClientActivity" />
+        <activity android:name="com.kodemore.test.TyAnimateListActivity" />
+        <activity android:name="com.kodemore.test.TyAnimationActivity" />
+        <activity android:name="com.kodemore.test.TyAppInfoActivity" />
+        <activity android:name="com.kodemore.test.TyAppListActivity" /> 
+        <activity android:name="com.kodemore.test.TyAssetActivity" /> 
+        <activity android:name="com.kodemore.test.TyAssetFileActivity" /> 
+        <activity android:name="com.kodemore.test.TyAutoCompleteActivity" />
+        <activity android:name="com.kodemore.test.TyBackActivity" />
+        <activity android:name="com.kodemore.test.TyBackground1Activity" />
+        <activity android:name="com.kodemore.test.TyBackground2Activity" />
+        <activity android:name="com.kodemore.test.TyBagelInventoryActivity" />
+        <activity android:name="com.kodemore.test.TyBarCodeScan1Activity" />
+        <activity android:name="com.kodemore.test.TyBarCodeScan2Activity" />
+        <activity android:name="com.kodemore.test.TyBluetoothScannerActivity" />
+        <activity android:name="com.kodemore.test.TyBuildAttributesActivity" />
+        <activity android:name="com.kodemore.test.TyButtonActivity" />
+        <activity android:name="com.kodemore.test.TyButtonDepthActivity" />
+        <activity android:name="com.kodemore.test.TyCalculatorActivity" />
+        <activity android:name="com.kodemore.test.TyCheckList1Activity" />
+        <activity android:name="com.kodemore.test.TyCheckList2Activity" />
+        <activity android:name="com.kodemore.test.TyClockActivity" />
+        <activity android:name="com.kodemore.test.TyComparatorActivity" />
+        <activity android:name="com.kodemore.test.TyContactSelectActivity" />
+        <activity android:name="com.kodemore.test.TyContextMenuActivity" />
+        <activity android:name="com.kodemore.test.TyCustomButtonActivity" />
+        <activity android:name="com.kodemore.test.TyCustomMenuActivity" />
+        <activity android:name="com.kodemore.test.TyCustomToastActivity" />
+        <activity android:name="com.kodemore.test.TyDatePickActivity" />
+        <activity android:name="com.kodemore.test.TyDialogClientActivity" />
+        <activity android:name="com.kodemore.test.TyDialogEventsActivity" />
+        <activity android:name="com.kodemore.test.TyDialogManagerActivity" />
+        <activity android:name="com.kodemore.test.TyDialogPopupActivity" />
+        <activity android:name="com.kodemore.test.TyDialogSizePositionActivity" />
+        <activity android:name="com.kodemore.test.TyDialogWithMultilineTextFieldActivity" />
+        <activity android:name="com.kodemore.test.TyDisplayInfoActivity" />
+        <activity android:name="com.kodemore.test.TyDpActivity" />
+        <activity android:name="com.kodemore.test.TyDrawableActivity" />
+        <activity android:name="com.kodemore.test.TyDrawOnViewActivity" />
+        <activity android:name="com.kodemore.test.TyEmailActivity" />
+        <activity android:name="com.kodemore.test.TyFileExternalApplicationActivity" />
+        <activity android:name="com.kodemore.test.TyFileExternalSharedActivity" />
+        <activity android:name="com.kodemore.test.TyFilePrivateActivity" />
+        <activity android:name="com.kodemore.test.TyFocusActivity" />
+        <activity android:name="com.kodemore.test.TyFocusSoftKeyToggleActivity" />
+        <activity android:name="com.kodemore.test.TyFontFamilyActivity" />
+        <activity android:name="com.kodemore.test.TyFrameActivity" />
+        <activity android:name="com.kodemore.test.TyFtpActivity" />
+        <activity android:name="com.kodemore.test.TyFtpDirectoryActivity" />
+        <activity android:name="com.kodemore.test.TyGetAddressActivity" />
+        <activity android:name="com.kodemore.test.TyGoogleDocActivity" />
+        <activity android:name="com.kodemore.test.TyHelloActivity" />
+        <activity android:name="com.kodemore.test.TyHideSoftKeyboardActivity" />
+        <activity android:name="com.kodemore.test.TyHtmlActivity" />
+        <activity android:name="com.kodemore.test.TyHtmlZoomActivity" />
+        <activity android:name="com.kodemore.test.TyImageButtonActivity" />
+        <activity android:name="com.kodemore.test.TyInigmaScanActivity" />
+        <activity android:name="com.kodemore.test.TyJsonActivity" />
+        <activity android:name="com.kodemore.test.TyLaunchGoogleStoreActivity" />
+        <activity android:name="com.kodemore.test.TyLayout1Activity" />
+        <activity android:name="com.kodemore.test.TyLayout2Activity" />
+        <activity android:name="com.kodemore.test.TyLayout3Activity" />
+        <activity android:name="com.kodemore.test.TyLayout4Activity" />
+        <activity android:name="com.kodemore.test.TyLayoutRotationActivity" />
+        <activity android:name="com.kodemore.test.TyLightActivity" />
+        <activity android:name="com.kodemore.test.TyLiquidUnitConversionActivity"/>
+        <activity android:name="com.kodemore.test.TyListChangesActivity" />
+        <activity android:name="com.kodemore.test.TyListContextMenuActivity" />
+        <activity android:name="com.kodemore.test.TyListDialog1Activity" />
+        <activity android:name="com.kodemore.test.TyListDialog2Activity" />
+        <activity android:name="com.kodemore.test.TyListEnablementActivity" />
+        <activity android:name="com.kodemore.test.TyListFilterAnimalActivity" />
+        <activity android:name="com.kodemore.test.TyListFilterContactActivity" />
+        <activity android:name="com.kodemore.test.TyListRefreshActivity" />
+        <activity android:name="com.kodemore.test.TyListSectionsActivity" />
+        <activity android:name="com.kodemore.test.TyListSections2Activity" />
+        <activity android:name="com.kodemore.test.TyListStringsActivity" />
+        <activity android:name="com.kodemore.test.TyListSubclassActivity" />
+        <activity android:name="com.kodemore.test.TyLocationActivity" />
+        <activity android:name="com.kodemore.test.TyLogcatActivity" />
+        <activity android:name="com.kodemore.test.TyMainActivity" />
+        <activity android:name="com.kodemore.test.TyMeasureTextActivity" />
+        <activity android:name="com.kodemore.test.TyMemoryActivity" />
+        <activity android:name="com.kodemore.test.TyMenuActivity" />
+        <activity android:name="com.kodemore.test.TyMessageActivity" />
+        <activity android:name="com.kodemore.test.TyMoneyFormattingActivity" />
+        <activity android:name="com.kodemore.test.TyNotificationActivity" />
+        <activity android:name="com.kodemore.test.TyNullRootActivity" />
+        <activity android:name="com.kodemore.test.TyNumberPadActivity" />
+        <activity android:name="com.kodemore.test.TyOAuthActivity" />
+        <activity android:name="com.kodemore.test.TyOrientationActivity" />
+        <activity android:name="com.kodemore.test.TyPhotoActivity" />
+        <activity android:name="com.kodemore.test.TyPopupWindowActivity" />
+        <activity android:name="com.kodemore.test.TyPreferences1Activity" />
+        <activity android:name="com.kodemore.test.TyPreferencesSeparate1Activity" />
+        <activity android:name="com.kodemore.test.TyPreferencesSeparate2Activity" />
+        <activity android:name="com.kodemore.test.TyPreferencesShared1Activity" />
+        <activity android:name="com.kodemore.test.TyPreferencesShared2Activity" />
+        <activity android:name="com.kodemore.test.TyProgressDialogActivity" />
+        <activity android:name="com.kodemore.test.TyQrDroidScanActivity" />
+        <activity android:name="com.kodemore.test.TyQuantityFieldActivity" />
+        <activity android:name="com.kodemore.test.TyQuickMarkScanActivity" />
+        <activity android:name="com.kodemore.test.TyRadarActivity" />
+        <activity android:name="com.kodemore.test.TyRequiredTextFieldActivity" />
+        <activity android:name="com.kodemore.test.TyResolveInfoActivity" />
+        <activity android:name="com.kodemore.test.TyRestartActivity" />
+        <activity android:name="com.kodemore.test.TyRestfulMailActivity" />
+        <activity android:name="com.kodemore.test.TyRunningAppsActivity" />
+        <activity android:name="com.kodemore.test.TySavePublicFileActivity" />
+        <activity android:name="com.kodemore.test.TyScaledImageButtonActivity" />
+        <activity android:name="com.kodemore.test.TyScreenOrientationActivity" />
+        <activity android:name="com.kodemore.test.TySearchButtonHardwareActivity" />
+        <activity android:name="com.kodemore.test.TySendAddressActivity" />
+        <activity android:name="com.kodemore.test.TySerializeSpeedActivity" />
+        <activity android:name="com.kodemore.test.TySlideActivity" />
+        <activity android:name="com.kodemore.test.TySlideMenuActivity" />
+        <activity android:name="com.kodemore.test.TySlowLoadActivity" />
+        <activity android:name="com.kodemore.test.TySmtpMailActivity" />
+        <activity android:name="com.kodemore.test.TySoftKeyboardToggleActivity"/>
+        <activity android:name="com.kodemore.test.TySpinnerActivity" />
+        <activity android:name="com.kodemore.test.TyStringCompareActivity"/>
+        <activity android:name="com.kodemore.test.TySystemPropertiesActivity"/>
+        <activity android:name="com.kodemore.test.TyTabActivity" />
+        <activity android:name="com.kodemore.test.TyTableLayout1Activity" />
+        <activity android:name="com.kodemore.test.TyTableLayout2Activity" />
+        <activity android:name="com.kodemore.test.TyTableLayout3Activity" />
+        <activity android:name="com.kodemore.test.TyTabTestActivity" />
+        <activity android:name="com.kodemore.test.TyTabTestHostedActivity" />
+        <activity android:name="com.kodemore.test.TyTernaryCheckBoxActivity" />
+        <activity android:name="com.kodemore.test.TyTestActivity" />
+        <activity android:name="com.kodemore.test.TyTextFieldActivity" />
+        <activity android:name="com.kodemore.test.TyTextFieldRulesActivity" />
+        <activity android:name="com.kodemore.test.TyTextSwitcherActivity" />
+        <activity android:name="com.kodemore.test.TyTitleBarActivity" />
+        <activity android:name="com.kodemore.test.TyToastActivity" />
+        <activity android:name="com.kodemore.test.TyTreeActivity" />
+        <activity android:name="com.kodemore.test.TyTriStateCheckBoxActivity" />
+        <activity android:name="com.kodemore.test.TyTriStateCheckBox2Activity" />
+        <activity android:name="com.kodemore.test.TyUriActivity" />
+        <activity android:name="com.kodemore.test.TyUnitParserActivity" />
+        <activity android:name="com.kodemore.test.TyUnregisteredActivity" />
+        <activity android:name="com.kodemore.test.TyUserListActivity" />
+        <activity android:name="com.kodemore.test.TyWebActivity" />
+        <activity android:name="com.kodemore.test.TyWheelIntegerActivity" />
+        <activity android:name="com.kodemore.test.TyWheelStringActivity" />
+        <activity android:name="com.kodemore.test.TyYesNoDialogActivity" />
+        <activity android:name="com.kodemore.test.TyYouTubeActivity" />
+        
+        <service  android:name="com.kodemore.test.service.TyIntegerService" />
+        <activity android:name="com.kodemore.test.service.TyIntegerServiceActivity" />
+        
+    </application>
+
+</manifest>

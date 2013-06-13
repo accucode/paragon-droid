@@ -1,0 +1,10 @@
+############################################################
+# patch_001
+############################################################
+
+
+create table sample
+(
+    code            text primary key not null,
+    name            text collate nocase
+);

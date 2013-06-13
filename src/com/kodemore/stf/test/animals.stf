@@ -1,0 +1,8 @@
+    dog
+    : name = gruff
+    
+    cat
+    : name = smoke
+    
+    mouse
+    : name = whiskers

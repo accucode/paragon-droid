@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        This stub attribute is declared only so that the auto-generated
+        class "R.attr" will not have an empty block that in turn causes
+        compile time warnings. 
+     -->
+    <attr name="kmStub" format="integer"/>
+</resources>

@@ -1,0 +1,62 @@
+I am used as a starting point for new android applications.
+
+Manually clone this stub
+    Copy the androidStub folder to the correct location.
+    Rename the copied folder to match your project.
+    Delete the .git subfolder.
+    Open the .project file and change the project's <name>.
+
+At this point the application should compile and run.
+    Confirm the app works.
+    Review and commit the changes to git.
+
+MyMainActivity.java
+    Change the welcome message.
+    Review and commit the changes to git.
+
+MyPreferences.java
+    Change the NAME to an app specific value.
+    Review and commit the changes to git.
+    
+FIXME's
+    Search for any remaining FIXME comments in the code.
+    Make changes as directed.
+    Review and commit the changes to git.
+    
+com.kodemore.stub (package)
+    Rename the stub package...
+        The simplest way to do this is via the eclipse tools.
+            1) In the Package Explorer view, select the 'src' folder.
+            2) In the Packages view, right click on the 'stub' package...
+                    Select Refactor -> Rename
+            3) When prompted, update references and rename subpackages.
+    This package represents the actual application (not tests and tools)
+        This package should:
+            start with "com"
+            contain you company name (accucode)
+            end with a unique project name.
+        E.g.: for a dog trainer app you might rename it to:
+            com.accucode.dogTrainer
+   *make sure that this was done for the stub.ui and stub.sql packages 
+        if not repeat the above steps for stub.ui and stub.sql
+    Review and commit the changes to git.
+
+Rename the Application Package
+    Don't do this manually.
+    Select your project in the Project Explorer
+    Right click and select
+        Android Tools... Rename Application Package.
+    Enter the same package location where you put MyApplication.java.
+    Once this is done you may get a compile error in the RR.java file
+        change the com.kodemore.stub to the sampe package location
+        where you put MyApplication.java. 
+            (the easiest way is to do a find/replace All)
+    Review and commit the changes to git.
+    
+AndroidManifest.xml
+    Change the application label.
+        Search for the line "android:label="
+        Change the value to a more appropriate value for your app.
+        Review and commit the changes to git.
+
+Delete this _readme.txt file from the new project.

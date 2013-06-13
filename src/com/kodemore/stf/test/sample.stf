@@ -1,0 +1,50 @@
+// single line comment
+
+    // single line comment indented
+
+/*
+ * multiline 
+ * comment
+ */
+
+    /*
+     * multiline indented
+     */
+    
+    /* multiline on a single line */ 
+
+parent
+: name  = james
+: age   = 34
+: active
+    
+    child
+    : name  = camie
+    : age   = 10
+    : description ...
+        ===
+        This is some long
+        text that spans 
+        multiple lines.
+        ===
+/*
+a.b.c
+    x.xx.xxx
+    y.yy.yyy
+    z(#i1 c1 c11).zz(#i2 c2 c22).zzz
+
+        "one line"
+        
+        ===
+        This is some long
+        text that spans 
+        multiple lines.
+        ===
+*/
+/*
+theInclude
+#include animals.stf 
+*/
+
+
+end

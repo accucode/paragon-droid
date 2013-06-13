@@ -1,0 +1,2 @@
+A sample asset file.
+This is available to the app via the AssetManager.
