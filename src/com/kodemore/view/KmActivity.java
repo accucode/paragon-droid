@@ -370,7 +370,9 @@ public abstract class KmActivity
     //= content view :: override
     //==================================================
 
-    // todo_aaron: add method comments to these 
+    /**
+     * When true, the activity will show the title bar.
+     */
     protected boolean showsTitleBar()
     {
         return true;
@@ -381,16 +383,26 @@ public abstract class KmActivity
         return false;
     }
 
+    /**
+     * When true, the activity will show the help button in the title bar.
+     */
     protected boolean showsTitleHelpButton()
     {
         return false;
     }
 
+    /**
+     * When true, the activity will show the accucode button in the title bar.
+     */
     protected boolean showsAccucodeIcon()
     {
         return false;
     }
 
+    /**
+     * When true, the activity will show the flash light button in the title bar.  This is 
+     * also dependent on whether or not the flashlight is supported by the device.
+     */
     protected boolean showsLightButton()
     {
         return false;
