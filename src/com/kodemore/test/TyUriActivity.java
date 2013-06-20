@@ -22,7 +22,6 @@
 
 package com.kodemore.test;
 
-import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -40,12 +39,6 @@ import com.kodemore.view.KmWebView;
 public class TyUriActivity
     extends KmActivity
 {
-    private Uri getStuffs()
-    {
-        String topic = "stub";
-        return getFilePathUri(topic);
-    }
-
     //##################################################
     //# variables
     //##################################################
@@ -56,7 +49,6 @@ public class TyUriActivity
     //# init
     //##################################################
 
-    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void init()
     {
@@ -93,6 +85,12 @@ public class TyUriActivity
     private Uri getUri()
     {
         return getStuffs();
+    }
+
+    private Uri getStuffs()
+    {
+        String topic = "stub";
+        return getFilePathUri(topic);
     }
 
     private Uri getFilePathUri(String resource)

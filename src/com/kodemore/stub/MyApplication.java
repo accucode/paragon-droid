@@ -5,7 +5,6 @@ import android.app.Application;
 public class MyApplication
     extends Application
 {
-    // test
     //##################################################
     //# create
     //##################################################//
