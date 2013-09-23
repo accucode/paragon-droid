@@ -33,7 +33,7 @@ com.kodemore.stub (package)
     This package represents the actual application (not tests and tools)
         This package should:
             start with "com"
-            contain you company name (accucode)
+            enter your company name (accucode)
             end with a unique project name.
         E.g.: for a dog trainer app you might rename it to:
             com.accucode.dogTrainer
@@ -48,7 +48,7 @@ Rename the Application Package
         Android Tools... Rename Application Package.
     Enter the same package location where you put MyApplication.java.
     Once this is done you may get a compile error in the RR.java file
-        change the com.kodemore.stub to the sampe package location
+        change the com.kodemore.stub to the same package location
         where you put MyApplication.java. 
             (the easiest way is to do a find/replace All)
     Review and commit the changes to git.
