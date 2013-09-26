@@ -5,6 +5,8 @@ Manually clone this stub
     Rename the copied folder to match your project.
     Delete the .git subfolder.
     Open the .project file and change the project's <name>.
+    Make sure to replace the default .gitignore and README.md files 
+        that GitHub supplies with paragon's .gitignore and README.md.
 
 At this point the application should compile and run.
     Confirm the app works.
