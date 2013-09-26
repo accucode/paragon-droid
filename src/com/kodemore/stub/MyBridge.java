@@ -2,8 +2,10 @@ package com.kodemore.stub;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.os.Environment;
 
 import com.kodemore.utility.KmBridge;
+import com.kodemore.utility.Kmu;
 
 public class MyBridge
     extends KmBridge
@@ -51,10 +53,11 @@ public class MyBridge
         return null;
     }
 
+    // review_steve: for external files - replaced the other getSharedApplicationFolder() 
     @Override
     public String getSharedApplicationFolder()
     {
-        return null;
+        String external = Environment.getExternalStorageDirectory().getPath();
+        return Kmu.joinPath(external, "Android/Shared", MyConstantsIF.SHARED_APPLICATION_FOLDER);
     }
-
 }
