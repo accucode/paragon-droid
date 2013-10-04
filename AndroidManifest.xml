@@ -7,8 +7,9 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="8" 
- />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+        />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -27,7 +28,7 @@
     <application
         android:name=".MyApplication"
         android:icon="@drawable/ic_launcher"
-        android:label="KodeMore Stub"
+        android:label="Paragon Stub"
         android:theme="@style/AppTheme" 
         android:debuggable="true"
         >
@@ -44,6 +45,8 @@
         <activity android:name="com.kodemore.stub.ui.MyMainActivity" />
         <activity android:name="com.kodemore.stub.ui.MyPreferencesActivity" />
 
+        <service  android:name="com.kodemore.cs3070.KmCs3070BarcodeService" />
+        
         <activity android:name="com.kodemore.test.TyAbstractFileActivity" />
         <activity android:name="com.kodemore.test.TyAbstractPreferencesActivity" />
         <activity android:name="com.kodemore.test.TyAcraTestActivity" />
