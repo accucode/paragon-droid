@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.os.Environment;
 
+import com.kodemore.acra.KmAcra;
 import com.kodemore.utility.KmBridge;
 import com.kodemore.utility.Kmu;
 
@@ -43,8 +44,8 @@ public class MyBridge
     @Override
     public void handleException(Exception ex)
     {
-        //none
-
+        Kmu.toast(Kmu.formatMessage(ex));
+        KmAcra.handleSilentException(ex);
     }
 
     @Override
@@ -53,7 +54,9 @@ public class MyBridge
         return null;
     }
 
-    // review_steve: for external files - replaced the other getSharedApplicationFolder() 
+    /**
+     * todo_wyatt: review
+     */
     @Override
     public String getSharedApplicationFolder()
     {
