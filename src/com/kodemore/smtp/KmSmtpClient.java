@@ -2,12 +2,12 @@ package com.kodemore.smtp;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.net.smtp.AuthenticatingSMTPClient;
 import org.apache.commons.net.smtp.AuthenticatingSMTPClient.AUTH_METHOD;
 import org.apache.commons.net.smtp.SMTPReply;
 
+import com.kodemore.utility.KmLog;
 import com.kodemore.utility.Kmu;
 
 public class KmSmtpClient
@@ -17,25 +17,57 @@ public class KmSmtpClient
     //##################################################
 
     private static final int         SMTP_MESSAGE_SENT = 250;
-    private static final int         SMTP_DEFAULT_PORT = 25;
-    private static final int         SMTP_MSA_PORT     = 587;
+
+    /**
+     * The default port for smtp.
+     */
+    private static final int         PORT_DEFAULT      = 25;
+
+    /**
+     * A common alternative port for Message Submission Agent (MSA).
+     */
+    private static final int         PORT_MSA          = 587;
 
     //##################################################
     //# variables
     //##################################################
 
+    /**
+     * The host machine.
+     */
+    private String                   _host;
+
+    /**
+     * The host port. Usually 25 or 587.
+     */
+    private int                      _port;
+
+    /**
+     * The user name if required for login.
+     */
+    private String                   _user;
+
+    /**
+     * The password if required for login.
+     */
+    private String                   _password;
+
+    /**
+     * todo_wyatt: review all names
+     */
     private AuthenticatingSMTPClient _client;
-    private int                      _response;
+    private Integer                  _replyCode;
     private Exception                _exception;
 
-    private boolean                  _authenticate;
-    private boolean                  _tls;
+    /**
+     * The authentication method, if any.
+     */
     private AUTH_METHOD              _authenticationMethod;
 
-    private String                   _host;
-    private int                      _port;
-    private String                   _user;
-    private String                   _password;
+    /**
+     * Transport Layer Security; enabled
+     */
+    private boolean                  _tls;
 
     /**
      * Returns whether a message was sent successfully or not.
@@ -44,7 +76,6 @@ public class KmSmtpClient
      */
     private Boolean                  _sent;
     private KmSmtpAbstractMessage    _message;
-    private Writer                   _writer;
 
     //##################################################
     //# constructors
@@ -52,68 +83,16 @@ public class KmSmtpClient
 
     public KmSmtpClient()
     {
-        this(null, SMTP_DEFAULT_PORT);
-    }
-
-    public KmSmtpClient(String host, int port)
-    {
-        _host = host;
-        _port = port;
-        _tls = false;
-        _authenticate = false;
-
-        _sent = null;
-        _exception = null;
-        _response = -1;
-
-        try
-        {
-            _client = new AuthenticatingSMTPClient();
-        }
-        catch ( NoSuchAlgorithmException ex )
-        {
-            _exception = ex;
-            _client = null;
-        }
+        setPort(PORT_DEFAULT);
     }
 
     //##################################################
-    //# accessing
+    //# host and port
     //##################################################
-
-    public int getPort()
-    {
-        return _port;
-    }
-
-    /** 
-     * Returns standard SMTP response codes, or -1 if there aren't any.
-     * This will return responses for connection events only.
-     */
-
-    public int getResponse()
-    {
-        return _response;
-    }
-
-    public Exception getException()
-    {
-        return _exception;
-    }
 
     public String getHost()
     {
         return _host;
-    }
-
-    public boolean hasResponse()
-    {
-        return _response != -1;
-    }
-
-    public boolean hasException()
-    {
-        return _exception != null;
     }
 
     public void setHost(String e)
@@ -121,28 +100,24 @@ public class KmSmtpClient
         _host = e;
     }
 
+    public int getPort()
+    {
+        return _port;
+    }
+
     public void setPort(int e)
     {
         _port = e;
     }
 
-    public void setMessage(KmSmtpAbstractMessage e)
+    public void setPortMsa()
     {
-        _message = e;
-        _sent = null;
+        setPort(PORT_MSA);
     }
 
-    public Boolean getSent()
+    public void setPortDefault()
     {
-        return _sent;
-    }
-
-    public boolean isSent()
-    {
-        if ( getSent() == null )
-            return false;
-
-        return getSent();
+        setPort(PORT_DEFAULT);
     }
 
     //##################################################
@@ -170,12 +145,111 @@ public class KmSmtpClient
     }
 
     //##################################################
-    //# security
+    //# accessing (response)
     //##################################################
 
-    public void enableTls()
+    /** 
+     * Returns standard SMTP reply code, or null if there isn't one.
+     * This will return responses for connection events only.
+     */
+    public int getReplyCode()
     {
-        _tls = true;
+        return _replyCode;
+    }
+
+    public boolean hasReplyCode()
+    {
+        return _replyCode != null;
+    }
+
+    //##################################################
+    //# sent
+    //##################################################
+
+    public Boolean getSent()
+    {
+        return _sent;
+    }
+
+    public boolean isSent()
+    {
+        return Kmu.isTrue(getSent());
+    }
+
+    //##################################################
+    //# exception
+    //##################################################
+
+    public Exception getException()
+    {
+        return _exception;
+    }
+
+    public boolean hasException()
+    {
+        return _exception != null;
+    }
+
+    public String formatException()
+    {
+        return Kmu.formatMessage(getException());
+    }
+
+    public void setMessage(KmSmtpAbstractMessage e)
+    {
+        _message = e;
+        _sent = null;
+    }
+
+    //##################################################
+    //# authentication method
+    //##################################################
+
+    public AUTH_METHOD getAuthenticationMethod()
+    {
+        return _authenticationMethod;
+    }
+
+    public void setAuthenticationMethod(AUTH_METHOD e)
+    {
+        _authenticationMethod = e;
+    }
+
+    public boolean hasAuthenticationMethod()
+    {
+        return _authenticationMethod != null;
+    }
+
+    public boolean isAuthenticating()
+    {
+        return hasAuthenticationMethod();
+    }
+
+    /**
+     * This works with Sendgrid server-side authentication by default.
+     */
+    public void setAuthenticationLogin()
+    {
+        setAuthenticationMethod(AUTH_METHOD.LOGIN);
+    }
+
+    //##################################################
+    //# transport layer security (TLS)
+    //##################################################
+
+    public void setTls(boolean e)
+    {
+        _tls = e;
+    }
+
+    public void setTls()
+    {
+        setTls(true);
+    }
+
+    public boolean getTls()
+    {
+        return _tls;
     }
 
     public boolean isTlsEnabled()
@@ -183,111 +257,66 @@ public class KmSmtpClient
         return _tls;
     }
 
-    public void enableAuthentication()
-    {
-        _authenticate = true;
-    }
-
-    public boolean isAuthenticationEnabled()
-    {
-        return _authenticate;
-    }
-
-    public void setAuthentication(AUTH_METHOD e)
-    {
-        _authenticationMethod = e;
-        enableAuthentication();
-    }
-
     //##################################################
-    //# message
+    //# send
     //##################################################
 
-    public boolean sendMessage()
+    public boolean send()
     {
-        if ( _message == null || _client == null )
-            return false;
-
-        boolean flag = false;
-
         try
         {
-            _connect();
-            _compose();
-            flag = _execute();
-            _disconnect();
+            _send();
+            _sent = true;
         }
         catch ( Exception ex )
         {
             _exception = ex;
+            _sent = false;
         }
-
-        _sent = flag;
-        return flag;
+        return _sent;
     }
 
     //##################################################
-    //# convenience
+    //# private
     //##################################################
 
-    /**
-     * This works with Sendgrid server-side authentication by default.
-     */
-    public void setCommonSecurity()
+    private boolean _send() throws Exception
     {
-        setAuthentication(AUTH_METHOD.LOGIN);
-        enableTls();
-    }
-
-    /**
-     * Sets the port 587, a commonly used port of service providers.
-     * This port is recommended to be used by Sendgrid for their service.
-     */
-    public void setCommonPort()
-    {
-        _port = SMTP_MSA_PORT;
-    }
-
-    //##################################################
-    //# utility
-    //##################################################
-
-    private void assignResponse()
-    {
-        if ( _client == null )
+        try
         {
-            _response = -1;
-            return;
+            _connect();
+            _compose();
+            return _execute();
         }
-
-        _response = _client.getReplyCode();
+        finally
+        {
+            _disconnectSafely();
+        }
     }
 
+    /**
+     * fixme_wyatt: wip
+     */
     private void _connect() throws Exception
     {
-        if ( _client == null )
-            return;
-
+        _client = new AuthenticatingSMTPClient();
         _client.connect(_host, _port);
         _client.login();
 
         if ( isTlsEnabled() )
             _client.execTLS();
 
-        if ( isAuthenticationEnabled() )
+        if ( hasAuthenticationMethod() )
             _client.auth(_authenticationMethod, _user, _password);
 
-        assignResponse();
+        _replyCode = _client.getReplyCode();
 
-        if ( !SMTPReply.isPositiveCompletion(getResponse()) )
+        if ( !SMTPReply.isPositiveCompletion(getReplyCode()) )
             throw new IOException("Connection cannot be resolved.");
     }
 
     private void _compose() throws IOException
     {
-        if ( _message == null )
-            return;
-
         String from = _message.getFrom();
 
         if ( from == null )
@@ -296,46 +325,48 @@ public class KmSmtpClient
         if ( !_message.hasRecipients() )
             return;
 
+        _client.setSender(from);
+
+        for ( KmSmtpRecipient e : _message.getRecipients() )
+            _client.addRecipient(e.getAddress());
+
+        _writeMessage();
+    }
+
+    private void _writeMessage() throws IOException
+    {
+        Writer out = null;
         try
         {
-            _client.setSender(from);
-
-            for ( KmSmtpRecipient e : _message.getRecipients() )
-                _client.addRecipient(e.getAddress());
-
-            _writer = _client.sendMessageData();
-
-            _message.composeOn(_writer);
+            out = _client.sendMessageData();
+            _message.composeOn(out);
         }
         finally
         {
-            Kmu.closeSafely(_writer);
+            Kmu.closeSafely(out);
         }
     }
 
     private boolean _execute() throws IOException
     {
-        if ( _client == null )
-            return false;
-
-        if ( _writer == null )
-            return false;
-
         _client.completePendingCommand();
 
-        if ( _client.getReplyCode() == SMTP_MESSAGE_SENT )
-            return true;
-
-        return false;
+        return _client.getReplyCode() == SMTP_MESSAGE_SENT;
     }
 
-    private void _disconnect() throws IOException
+    private void _disconnectSafely()
     {
-        if ( _client == null )
-            return;
+        try
+        {
+            if ( _client == null )
+                return;
 
-        _client.logout();
-        _client.disconnect();
+            _client.logout();
+            _client.disconnect();
+        }
+        catch ( Exception ex )
+        {
+            KmLog.error(ex);
+        }
     }
-
 }

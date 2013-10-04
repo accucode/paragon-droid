@@ -34,8 +34,8 @@ import com.kodemore.smtp.KmSmtpAttachment;
 import com.kodemore.smtp.KmSmtpClient;
 import com.kodemore.smtp.KmSmtpRecipient;
 import com.kodemore.smtp.KmSmtpSimpleMessage;
-import com.kodemore.smtp.types.KmSmtpContentType;
 import com.kodemore.smtp.types.KmSmtpRecipientType;
+import com.kodemore.string.KmStringBuilder;
 import com.kodemore.view.KmAction;
 import com.kodemore.view.KmActivity;
 import com.kodemore.view.KmColumnLayout;
@@ -50,8 +50,8 @@ public class TySmtpMailActivity
     //# constants
     //##################################################
 
-    private static final String DEFAULT_TO      = "Adam Profitt <aprofitt@accucode.com>";
-    private static final String DEFAULT_FROM    = "aprofitt@accucode.com";
+    private static final String DEFAULT_TO      = "user@acme.com";
+    private static final String DEFAULT_FROM    = "user@acme.com";
     private static final String DEFAULT_SUBJECT = "TEST - This is the subject";
     private static final String DEFAULT_BODY    = "TEST - This is the body";
 
@@ -59,8 +59,8 @@ public class TySmtpMailActivity
 
     private static final String SMTP_HOST_NAME  = "smtp.sendgrid.net";
     private static final int    SMTP_PORT       = 587;
-    private static final String SMTP_AUTH_USER  = "accucodetest";
-    private static final String SMTP_AUTH_PWD   = "temp123!";
+    private static final String SMTP_USER       = "user";
+    private static final String SMTP_PASSWORD   = "password";
 
     //##################################################
     //# init
@@ -124,39 +124,42 @@ public class TySmtpMailActivity
 
     private void test()
     {
-        KmSmtpClient client = new KmSmtpClient(SMTP_HOST_NAME, SMTP_PORT);
-
-        /*
-         * Sets common security measures, works with Sendgrid
-         */
-        client.setCommonSecurity();
-        client.setLoginCredentials(SMTP_AUTH_USER, SMTP_AUTH_PWD);
-
-        KmSmtpSimpleMessage msg = new KmSmtpSimpleMessage();
-
         KmSmtpRecipient to = new KmSmtpRecipient(KmSmtpRecipientType.TO, DEFAULT_TO);
 
-        KmSmtpAttachment attach = new KmSmtpAttachment(
-            createCsv(FILE_NAME),
-            FILE_NAME,
-            KmSmtpContentType.FILE);
+        Uri fileUri = writeCsvFile(FILE_NAME);
 
+        KmSmtpAttachment attach;
+        attach = new KmSmtpAttachment();
+        attach.setUri(fileUri);
+        attach.setFileName(FILE_NAME);
+
+        KmSmtpSimpleMessage msg;
+        msg = new KmSmtpSimpleMessage();
         msg.addRecipient(to);
-        msg.setContentMultipart();
-        msg.addAttachment(attach);
         msg.setSubject(DEFAULT_SUBJECT);
         msg.setFrom(DEFAULT_FROM);
         msg.setBody(DEFAULT_BODY);
+        msg.setContentMultipart();
+        msg.addAttachment(attach);
 
+        KmSmtpClient client;
+        client = new KmSmtpClient();
+        client.setHost(SMTP_HOST_NAME);
+        client.setPort(SMTP_PORT);
+        client.setUser(SMTP_USER);
+        client.setPassword(SMTP_PASSWORD);
+        client.setAuthenticationLogin();
+        client.setTls();
         client.setMessage(msg);
-        client.sendMessage();
+        client.send();
 
-        feedbackAlert(client);
+        showAlert(client);
     }
 
-    private Uri createCsv(String fileName)
+    private Uri writeCsvFile(String fileName)
     {
-        KmCsvBuilder csv = new KmCsvBuilder();
+        KmCsvBuilder csv;
+        csv = new KmCsvBuilder();
         csv.printField("this is");
         csv.printField("a test");
         csv.printField("to see");
@@ -164,23 +167,21 @@ public class TySmtpMailActivity
         csv.printField("work");
         csv.endRecord();
 
-        KmFilePath file = new KmApplicationFilePath(fileName);
-
+        KmFilePath file;
+        file = new KmApplicationFilePath(fileName);
         file.writeString(csv.toString());
 
         return file.toUri();
     }
 
-    private void feedbackAlert(KmSmtpClient client)
+    private void showAlert(KmSmtpClient client)
     {
-        boolean isSent = client.isSent();
-        String ex = "none";
+        KmStringBuilder out;
+        out = new KmStringBuilder();
+        out.printfln("Message Sent: %s", client.isSent());
+        out.printfln("Response Code: %s", client.getReplyCode());
+        out.printfln("Exception: %s", client.formatException());
 
-        if ( client.getException() != null )
-            ex = client.getException().toString();
-
-        int resp = client.getResponse();
-
-        alert(" MESSAGE SENT : " + isSent + "\n RESPONSE CODE : " + resp + " \n EXCEPTION : " + ex);
+        alert(out);
     }
 }

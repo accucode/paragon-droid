@@ -32,21 +32,8 @@ public class KmSmtpAttachment
 
     public KmSmtpAttachment()
     {
-        this(null, null, KmSmtpContentType.FILE);
-    }
-
-    public KmSmtpAttachment(Uri uri, String fileName)
-    {
-        this(uri, fileName, KmSmtpContentType.FILE);
-    }
-
-    public KmSmtpAttachment(Uri uri, String fileName, KmSmtpContentType fileType)
-    {
         _uid = Kmu.newUid();
-        _fileName = fileName;
-        _fileUri = uri;
-        _fileType = fileType;
-        _tempUri = null;
+        _fileType = KmSmtpContentType.FILE;
     }
 
     //##################################################
@@ -58,6 +45,9 @@ public class KmSmtpAttachment
         return _fileUri;
     }
 
+    /**
+     * fixme_wyatt: naming?
+    */
     public void setUri(Uri e)
     {
         _fileUri = e;
@@ -84,7 +74,7 @@ public class KmSmtpAttachment
     }
 
     //##################################################
-    //# content/encoding
+    //# content
     //##################################################
 
     public KmSmtpContentType getContent()
@@ -106,6 +96,10 @@ public class KmSmtpAttachment
     {
         return getContent() != null;
     }
+
+    //##################################################
+    //# encoding
+    //##################################################
 
     public KmSmtpEncoding getEncoding()
     {
