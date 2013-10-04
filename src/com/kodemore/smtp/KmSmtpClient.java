@@ -18,7 +18,6 @@ public class KmSmtpClient
 
     private static final int         SMTP_MESSAGE_SENT = 250;
     private static final int         SMTP_DEFAULT_PORT = 25;
-    // private static final int         SMTP_SSL_PORT     = 465;
     private static final int         SMTP_MSA_PORT     = 587;
 
     //##################################################
@@ -31,7 +30,7 @@ public class KmSmtpClient
 
     private boolean                  _authenticate;
     private boolean                  _tls;
-    private AUTH_METHOD              _authMethod;
+    private AUTH_METHOD              _authenticationMethod;
 
     private String                   _host;
     private int                      _port;
@@ -40,7 +39,7 @@ public class KmSmtpClient
 
     /**
      * Returns whether a message was sent successfully or not.
-     * Returns false if not, true if so, null if there was no
+     * Returns true if sent, false if not, and null if there was no
      * attempt to send the message.
      */
     private Boolean                  _sent;
@@ -127,9 +126,9 @@ public class KmSmtpClient
         _port = e;
     }
 
-    public void setMessage(KmSmtpAbstractMessage mail)
+    public void setMessage(KmSmtpAbstractMessage e)
     {
-        _message = mail;
+        _message = e;
         _sent = null;
     }
 
@@ -147,6 +146,30 @@ public class KmSmtpClient
     }
 
     //##################################################
+    //# user and password
+    //##################################################
+
+    public String getUser()
+    {
+        return _user;
+    }
+
+    public void setUser(String e)
+    {
+        _user = e;
+    }
+
+    public String getPassword()
+    {
+        return _password;
+    }
+
+    public void setPassword(String e)
+    {
+        _password = e;
+    }
+
+    //##################################################
     //# security
     //##################################################
 
@@ -160,12 +183,6 @@ public class KmSmtpClient
         return _tls;
     }
 
-    public void setAuthentication(AUTH_METHOD method)
-    {
-        _authMethod = method;
-        enableAuthentication();
-    }
-
     public void enableAuthentication()
     {
         _authenticate = true;
@@ -176,16 +193,9 @@ public class KmSmtpClient
         return _authenticate;
     }
 
-    public void setLoginCredentials(String userName, String password)
+    public void setAuthentication(AUTH_METHOD e)
     {
-        _user = userName;
-        _password = password;
-    }
-
-    public void setAuthentication(AUTH_METHOD method, String userName, String password)
-    {
-        setAuthentication(method);
-        setLoginCredentials(userName, password);
+        _authenticationMethod = e;
         enableAuthentication();
     }
 
@@ -265,7 +275,7 @@ public class KmSmtpClient
             _client.execTLS();
 
         if ( isAuthenticationEnabled() )
-            _client.auth(_authMethod, _user, _password);
+            _client.auth(_authenticationMethod, _user, _password);
 
         assignResponse();
 

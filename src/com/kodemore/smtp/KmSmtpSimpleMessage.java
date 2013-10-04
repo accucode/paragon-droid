@@ -2,6 +2,13 @@ package com.kodemore.smtp;
 
 import java.io.IOException;
 
+/**
+ *  KmSmtpSimpleMessage should be used for plain text emails
+ *  or for plain text emails with file attachments.
+ *  
+ *  See KmSmtpAlternativeMessage if you wish to use 
+ *  multipart/alternative formatting
+ */
 public class KmSmtpSimpleMessage
     extends KmSmtpAbstractMessage
 {
@@ -15,13 +22,6 @@ public class KmSmtpSimpleMessage
     //# constructor
     //##################################################
 
-    /**
-     *  KmSmtpSimpleMessage should be used for plain text emails
-     *  or for plain text emails with file attachments.
-     *  
-     *  See KmSmtpAlternativeMessage if you wish to use 
-     *  multipart/alternative formatting
-     */
     public KmSmtpSimpleMessage()
     {
         setContentPlainText();
