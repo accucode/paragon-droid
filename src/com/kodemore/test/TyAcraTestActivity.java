@@ -1,9 +1,8 @@
 package com.kodemore.test;
 
-import org.acra.ACRA;
-
 import android.view.View;
 
+import com.kodemore.acra.KmAcra;
 import com.kodemore.view.KmAction;
 import com.kodemore.view.KmActivity;
 import com.kodemore.view.KmColumnLayout;
@@ -30,11 +29,9 @@ public class TyAcraTestActivity
     {
         KmColumnLayout root;
         root = ui().newColumn();
-        root.addText("This will throw an exception and launch ACRA : crash handling programmatically. See MyApplication for more details.");
-        root.addButton("Throw Handled Exception", newExceptionAction());
-        root.addText("This will throw an unhandled exception and ACRA will pick it up if enabled. See MyApplication for more details.");
-        root.addButton("Throw Unhandled Exception", newUnhandledExceptionAction());
-
+        root.addButton("Manual (call acra directly)", newManualAction());
+        root.addButton("Automatic (handled in KmAction)", newAutomaticAction());
+        root.addButton("Automagic (jvm hook, terminates app)", newAutomagicAction());
         return root;
     }
 
@@ -42,26 +39,44 @@ public class TyAcraTestActivity
     //# action
     //##################################################
 
-    private KmAction newExceptionAction()
+    private KmAction newManualAction()
     {
         return new KmAction()
         {
             @Override
             protected void handle()
             {
-                handleException();
+                handleManual();
             }
         };
     }
 
-    private KmAction newUnhandledExceptionAction()
+    private KmAction newAutomaticAction()
     {
         return new KmAction()
         {
             @Override
             public void handle()
             {
-                handleUnhandledException();
+                handleAutomatic();
+            }
+        };
+    }
+
+    private KmAction newAutomagicAction()
+    {
+        return new KmAction()
+        {
+            @Override
+            public void handle()
+            {
+                handleAutomagic();
+            }
+
+            @Override
+            protected boolean catchesExceptions()
+            {
+                return false;
             }
         };
     }
@@ -70,27 +85,50 @@ public class TyAcraTestActivity
     //# handle 
     //##################################################
 
-    private void handleException()
+    /**
+     * This demonstrates how to manually send exceptions to ACRA.
+     * However, as we'll see below, this is usually not needed.
+     */
+    private void handleManual()
     {
         try
         {
-            throw new RuntimeException("Dying on purpose : ACRA Test.");
+            throwRuntime();
         }
-        catch ( RuntimeException e )
+        catch ( Exception ex )
         {
-            try
-            {
-                ACRA.getErrorReporter().handleSilentException(e);
-            }
-            catch ( IllegalStateException ex )
-            {
-                alert("ACRA isn't installed, cannot send silent exception to ACRA");
-            }
+            KmAcra.handleSilentException(ex);
         }
     }
 
-    private void handleUnhandledException()
+    /**
+     * This demonstrates the try-catch block that is built into the KmAction
+     * class.  See KmAction.fire() and trace through it.  You should find that
+     * KmAction delegates to the KmBridge, which eventually delegates to ACRA.
+     */
+    private void handleAutomatic()
     {
-        throw new RuntimeException("Dying on purpose : ACRA Test.");
+        throwRuntime();
+    }
+
+    /**
+     * This demonstrates ACRAs hook into the JVM runtime.  Note that we override
+     * catchesExceptions() in the action above to disable exception handling.
+     * This allows us to test what happens even when we do not catch the exception.
+     * This shows how Acra allows us to capture truly unhandled exceptions, usually
+     * even if they terminate the app.
+     */
+    private void handleAutomagic()
+    {
+        throwRuntime();
+    }
+
+    //##################################################
+    //# utility
+    //##################################################
+
+    private void throwRuntime()
+    {
+        throw new RuntimeException("Acra Test");
     }
 }
