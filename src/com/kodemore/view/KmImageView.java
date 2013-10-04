@@ -131,7 +131,6 @@ public class KmImageView
     public void setImage(int resId)
     {
         setImageDrawable(getResources().getDrawable(resId));
-        // review_wyatt (lucas) - Wyatt, this has been added because I observed that the view wasn't resizing to scale types on the images.
         setAdjustViewBounds(true);
     }
 

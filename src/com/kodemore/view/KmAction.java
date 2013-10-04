@@ -263,11 +263,17 @@ public abstract class KmAction
 
     public void fire()
     {
+        if ( catchesExceptions() )
+            _fireTryCatch();
+        else
+            _fireTimed();
+    }
+
+    private void _fireTryCatch()
+    {
         try
         {
-            KmTimer t = KmTimer.run(KmAction.class, "fire");
-            handle();
-            t.check();
+            _fireTimed();
         }
         catch ( Exception ex )
         {
@@ -276,5 +282,23 @@ public abstract class KmAction
         }
     }
 
+    private void _fireTimed()
+    {
+        KmTimer t = KmTimer.run(KmAction.class, "fire");
+        handle();
+        t.check();
+    }
+
+    /**
+     * By default, actions usually attempt to catch exceptions and handle
+     * them politely.  Subclasses can override this method to disable this
+     * behavior.
+     */
+    protected boolean catchesExceptions()
+    {
+        return true;
+    }
+
     protected abstract void handle();
+
 }

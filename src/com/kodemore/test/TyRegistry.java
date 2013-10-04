@@ -37,7 +37,11 @@ public class TyRegistry
      */
     public static Class<? extends Activity> getQuickTest()
     {
-        return null;
+        /**
+         * todo_wyatt: remove
+         */
+        // return TyAcraTestActivity.class;
+        return TyBluetoothScannerActivity.class;
     }
 
     /**
