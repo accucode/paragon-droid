@@ -20,7 +20,7 @@
   THE SOFTWARE.
  */
 
-package com.kodemore.utility;
+package com.kodemore.cs3070;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +31,9 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 
-import com.kodemore.collection.KmList;
 import com.kodemore.string.KmStringBuilder;
+import com.kodemore.utility.KmBridge;
+import com.kodemore.utility.Kmu;
 
 /**
  * I provide a bluetooth socket interface to the Symbol CS3070
@@ -48,16 +49,16 @@ public class KmCs3070BarcodeScanner
      * The prefix used to automatically select the correct device 
      * from the list of available bonded (Paired) devices.
      */
-    private static final String               NAME_PREFIX              = "cs3070";
+    private static final String       NAME_PREFIX              = "cs3070";
 
     /**
-     * The Service Description Protocol (SPD) for Serial Port Profile (SPP)
+     * The Service Description Protocol (SDP) for Serial Port Profile (SPP)
      * service class running on the RFComm bluetooth protocol.  (0x1101).
      */
-    private static final String               UUID_SERIAL_PORT_PROFILE = "00001101-0000-1000-8000-00805F9B34FB";
+    private static final String       UUID_SERIAL_PORT_PROFILE = "00001101-0000-1000-8000-00805F9B34FB";
 
-    private static final int                  CARRIAGE_RETURN          = 0x0D;
-    private static final int                  LINE_FEED                = 0x0A;
+    private static final int          CARRIAGE_RETURN          = 0x0D;
+    private static final int          LINE_FEED                = 0x0A;
 
     //##################################################
     //# variables
@@ -66,18 +67,18 @@ public class KmCs3070BarcodeScanner
     /**
      * The currently selected device.
      */
-    private BluetoothDevice                   _device;
+    private BluetoothDevice           _device;
 
     /**
      * A background thread that loops while listening for barcode scans.
      */
-    private LocalThread                       _thread;
+    private LocalThread               _thread;
 
     /**
-     * Any listeners registered by the client activity.
-     * These are fired when a barcode is scanned.
+     * A hook for a barcode callback.  The listener will be notified
+     * anytime a barcode is scanned.
      */
-    private KmList<KmCs3070BarcodeListenerIF> _listeners;
+    private KmCs3070BarcodeListenerIF _listener;
 
     //##################################################
     //# constructor
@@ -87,7 +88,7 @@ public class KmCs3070BarcodeScanner
     {
         _device = null;
         _thread = null;
-        _listeners = new KmList<KmCs3070BarcodeListenerIF>();
+        _listener = null;
     }
 
     //##################################################
@@ -158,25 +159,30 @@ public class KmCs3070BarcodeScanner
     //# listeners
     //##################################################
 
-    public void addListener(KmCs3070BarcodeListenerIF e)
+    public KmCs3070BarcodeListenerIF getListener()
     {
-        _listeners.add(e);
+        return _listener;
     }
 
-    public void removeListener(KmCs3070BarcodeListenerIF e)
+    public void setListener(KmCs3070BarcodeListenerIF e)
     {
-        _listeners.remove(e);
+        _listener = e;
     }
 
-    public void clearListeners()
+    public boolean hasListener()
     {
-        _listeners.clear();
+        return getListener() != null;
     }
 
-    private void fireListeners(String barcode)
+    public void clearListener()
     {
-        for ( KmCs3070BarcodeListenerIF e : _listeners )
-            e.onScannedBarcode(barcode);
+        setListener(null);
+    }
+
+    private void fireListener(String barcode)
+    {
+        if ( hasListener() )
+            getListener().onBarcodeScan(barcode);
     }
 
     //##################################################
@@ -329,7 +335,7 @@ public class KmCs3070BarcodeScanner
                     if ( _buffer.isEmpty() )
                         continue;
 
-                    fireListeners(_buffer.toString());
+                    fireListener(_buffer.toString());
                     _buffer.clear();
                     continue;
                 }

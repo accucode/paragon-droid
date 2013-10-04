@@ -20,7 +20,7 @@
   THE SOFTWARE.
  */
 
-package com.kodemore.utility;
+package com.kodemore.cs3070;
 
 /**
  * A simple interface that allows clients to listen for
@@ -31,5 +31,5 @@ public interface KmCs3070BarcodeListenerIF
     /**
      * Process a scanned barcode.
      */
-    void onScannedBarcode(String e);
+    void onBarcodeScan(String e);
 }

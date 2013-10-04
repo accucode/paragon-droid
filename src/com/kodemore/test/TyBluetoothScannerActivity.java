@@ -27,11 +27,11 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.view.View;
 
+import com.kodemore.cs3070.KmCs3070BarcodeListenerIF;
+import com.kodemore.cs3070.KmCs3070BarcodeScanner;
 import com.kodemore.intent.KmSimpleIntentCallback;
 import com.kodemore.string.KmStringBuilder;
 import com.kodemore.utility.KmBridge;
-import com.kodemore.utility.KmCs3070BarcodeListenerIF;
-import com.kodemore.utility.KmCs3070BarcodeScanner;
 import com.kodemore.utility.KmRunnable;
 import com.kodemore.view.KmAction;
 import com.kodemore.view.KmActivity;
@@ -63,7 +63,7 @@ public class TyBluetoothScannerActivity
     protected void init()
     {
         _scanner = new KmCs3070BarcodeScanner();
-        _scanner.addListener(newBarcodeListener());
+        _scanner.setListener(newBarcodeListener());
         _scanner.setDeviceAuto();
 
         _requestEnableCallbackIntent = newRequestEnableCallbackIntent();
@@ -125,8 +125,8 @@ public class TyBluetoothScannerActivity
         root.addSpace();
 
         row = root.addEvenRow();
-        row.addButton("Start Client", newStartScannerAction());
-        row.addButton("Stop Client", newStopScannerAction());
+        row.addButton("Start Client", newStartClientAction());
+        row.addButton("Stop Client", newStopClientAction());
 
         root.addView(_barcodeText);
         return root;
@@ -141,7 +141,7 @@ public class TyBluetoothScannerActivity
         return new KmCs3070BarcodeListenerIF()
         {
             @Override
-            public void onScannedBarcode(final String e)
+            public void onBarcodeScan(final String e)
             {
                 new KmRunnable()
                 {
@@ -195,26 +195,26 @@ public class TyBluetoothScannerActivity
         };
     }
 
-    private KmAction newStartScannerAction()
+    private KmAction newStartClientAction()
     {
         return new KmAction()
         {
             @Override
             protected void handle()
             {
-                handleStartScanner();
+                handleStartClient();
             }
         };
     }
 
-    private KmAction newStopScannerAction()
+    private KmAction newStopClientAction()
     {
         return new KmAction()
         {
             @Override
             protected void handle()
             {
-                handleStopScanner();
+                handleStopClient();
             }
         };
     }
@@ -257,7 +257,7 @@ public class TyBluetoothScannerActivity
         refreshSelectedDevice();
     }
 
-    private void handleStartScanner()
+    private void handleStartClient()
     {
         if ( _scanner.isRunning() )
         {
@@ -274,7 +274,7 @@ public class TyBluetoothScannerActivity
         alert("Unable to Start");
     }
 
-    private void handleStopScanner()
+    private void handleStopClient()
     {
         if ( _scanner.isNotRunning() )
         {
