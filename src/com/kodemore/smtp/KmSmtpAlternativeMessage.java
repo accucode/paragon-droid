@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.kodemore.utility.Kmu;
 
 public class KmSmtpAlternativeMessage
-    extends KmSmtpAbstractMessage
+    extends KmSmtpMessage
 {
     //##################################################
     //# constants

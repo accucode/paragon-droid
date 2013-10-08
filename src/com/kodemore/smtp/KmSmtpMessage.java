@@ -14,7 +14,7 @@ import com.kodemore.smtp.types.KmSmtpContentType;
 import com.kodemore.smtp.types.KmSmtpRecipientType;
 import com.kodemore.utility.Kmu;
 
-public abstract class KmSmtpAbstractMessage
+public abstract class KmSmtpMessage
 {
     //##################################################
     //# enum
@@ -63,7 +63,7 @@ public abstract class KmSmtpAbstractMessage
     //# constructors
     //##################################################
 
-    protected KmSmtpAbstractMessage()
+    protected KmSmtpMessage()
     {
         _uid = Kmu.newUid();
         _attachments = new KmList<KmSmtpAttachment>();

@@ -12,7 +12,7 @@ import com.kodemore.file.KmFilePath;
 import com.kodemore.utility.Kmu;
 
 public class KmSmtpSavedMessage
-    extends KmSmtpAbstractMessage
+    extends KmSmtpMessage
 {
     //##################################################
     //# variables

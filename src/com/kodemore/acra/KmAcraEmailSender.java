@@ -18,6 +18,10 @@ public class KmAcraEmailSender
     //# constants
     //##################################################
 
+    /**
+     * todo_wyatt: remove all uses of "accucode".
+     */
+
     private static final String TO_ADDRESS     = "wlove@accucode.com";
     private static final String FROM_ADDRESS   = "app@world.com";
     private static final String SUBJECT_PREFIX = "crash report";
@@ -57,6 +61,10 @@ public class KmAcraEmailSender
     {
         try
         {
+            /**
+             * todo_wyatt: Km >> My
+             */
+
             KmSmtpClient c;
             c = new KmSmtpClient();
             c.setHost(MyConstantsIF.SMTP_RELAY_HOST);

@@ -10,7 +10,7 @@ import java.io.IOException;
  *  multipart/alternative formatting
  */
 public class KmSmtpSimpleMessage
-    extends KmSmtpAbstractMessage
+    extends KmSmtpMessage
 {
     //##################################################
     //# variables

@@ -50,13 +50,23 @@ public class TySmtpMailActivity
     //# constants
     //##################################################
 
-    private static final String DEFAULT_TO      = "user@acme.com";
-    private static final String DEFAULT_FROM    = "user@acme.com";
+    /**
+     * Mailinator.com provides free, public, receive-only email.
+     * All messages are deleted after a few hours.
+     */
+    private static final String DEFAULT_TO      = "kodemore@mailinator.com";
+    private static final String DEFAULT_FROM    = "kodemore@mailinator.com";
+
+    /**
+     * Some sample content for the subject, body, etc...
+     */
     private static final String DEFAULT_SUBJECT = "TEST - This is the subject";
     private static final String DEFAULT_BODY    = "TEST - This is the body";
-
     private static final String FILE_NAME       = "test.csv";
 
+    /**
+     * Your smtp server.  You'll need to use REAL credentials to test this. 
+     */
     private static final String SMTP_HOST_NAME  = "smtp.sendgrid.net";
     private static final int    SMTP_PORT       = 587;
     private static final String SMTP_USER       = "user";
@@ -156,7 +166,7 @@ public class TySmtpMailActivity
         showAlert(client);
     }
 
-    private Uri writeCsvFile(String fileName)
+    private Uri writeCsvFile(String name)
     {
         KmCsvBuilder csv;
         csv = new KmCsvBuilder();
@@ -168,19 +178,19 @@ public class TySmtpMailActivity
         csv.endRecord();
 
         KmFilePath file;
-        file = new KmApplicationFilePath(fileName);
+        file = new KmApplicationFilePath(name);
         file.writeString(csv.toString());
 
         return file.toUri();
     }
 
-    private void showAlert(KmSmtpClient client)
+    private void showAlert(KmSmtpClient e)
     {
         KmStringBuilder out;
         out = new KmStringBuilder();
-        out.printfln("Message Sent: %s", client.isSent());
-        out.printfln("Response Code: %s", client.getReplyCode());
-        out.printfln("Exception: %s", client.formatException());
+        out.printfln("Message Sent: %s", e.isSent());
+        out.printfln("Reply Code: %s", e.getReplyCode());
+        out.printfln("Exception: %s", e.formatException());
 
         alert(out);
     }
