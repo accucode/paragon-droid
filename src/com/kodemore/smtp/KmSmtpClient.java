@@ -165,11 +165,6 @@ public class KmSmtpClient
         return _client.getReplyCode();
     }
 
-    private boolean hasOkReplyCode()
-    {
-        return getReplyCode() == SMTPReply.ACTION_OK;
-    }
-
     private boolean hasPositiveCompletionReplyCode()
     {
         return SMTPReply.isPositiveCompletion(getReplyCode());
@@ -282,11 +277,10 @@ public class KmSmtpClient
             _sent = false;
             _exception = null;
             _send();
-            _sent = hasOkReplyCode();
+            _sent = true;
         }
         catch ( Exception ex )
         {
-            _sent = false;
             _exception = ex;
         }
         return _sent;
@@ -304,7 +298,9 @@ public class KmSmtpClient
             _login();
             _tls();
             _authenticate();
-            _compose();
+            _setSender();
+            _addRecipients();
+            _composeMessage();
             _complete();
         }
         finally
@@ -347,14 +343,7 @@ public class KmSmtpClient
             fatal("Unable to authenticate, reply code (%s).", getReplyCode());
     }
 
-    private void _compose() throws Exception
-    {
-        _composeSender();
-        _composeRecipients();
-        _composeMessage();
-    }
-
-    private void _composeSender() throws Exception
+    private void _setSender() throws Exception
     {
         String e = _message.getFrom();
 
@@ -366,7 +355,7 @@ public class KmSmtpClient
             fatal("Unable to set sender, reply code (%s).", getReplyCode());
     }
 
-    private void _composeRecipients() throws Exception
+    private void _addRecipients() throws Exception
     {
         KmList<KmSmtpRecipient> v = _message.getRecipients();
 
