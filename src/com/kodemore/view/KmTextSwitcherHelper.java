@@ -117,11 +117,6 @@ public class KmTextSwitcherHelper
             e.setFontStyle(style);
     }
 
-    /**
-     * (valerie) added white text method
-     *
-     * No you didn't.
-     */
     public void setTextColor(int color)
     {
         for ( KmTextViewHelper e : getHelpers() )
