@@ -76,7 +76,6 @@ public class TyRegistry
         v.add(TyCheckList1Activity.class);
         v.add(TyCheckList2Activity.class);
         v.add(TyClockActivity.class);
-        v.add(TyComparatorActivity.class);
         v.add(TyContactSelectActivity.class);
         v.add(TyContextMenuActivity.class);
         v.add(TyCustomButtonActivity.class);

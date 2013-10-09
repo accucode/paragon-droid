@@ -85,10 +85,6 @@ public class KmSqlSelect
         select(s);
     }
 
-    /**
-     * review_valerie: this will need to be modified depending on what
-     * we decide to do about the Order total
-     */
     public void selectSumOfProducts(KmSqlColumnIF col1, KmSqlColumnIF col2)
     {
         String s = Kmu.format("sum(%s * %s)", col1.getName(), col2.getName());
