@@ -9,16 +9,20 @@ public class MyPreferenceController
     //# constants
     //##################################################
 
+    public static final String  NAME                     = MyConstantsIF.APPLICATION_PACKAGE
+                                                             + ".preferences";
+
+    public static final String  DEVICE_UID_KEY           = "deviceUid";
+    public static final String  DEVICE_UID_DEFAULT       = null;
+
+    public static final String  SQL_PACKAGE_NAME_KEY     = "sqlPackageName";
+    public static final String  SQL_PACKAGE_NAME_DEFAULT = "default";
+
     /**
-     * todo_wyatt: move to constants
+     * Control whether the splash page is displayed.
      */
-    public static final String NAME                     = "kodemore.stub.preferences";
-
-    public static final String DEVICE_UID_KEY           = "deviceUid";
-    public static final String DEVICE_UID_DEFAULT       = null;
-
-    public static final String SQL_PACKAGE_NAME_KEY     = "sqlPackageName";
-    public static final String SQL_PACKAGE_NAME_DEFAULT = "default";
+    public static final String  SPLASH_KEY               = "splash";
+    public static final Boolean SPLASH_DEFAULT           = true;
 
     //##################################################
     //# constructor
@@ -52,4 +56,15 @@ public class MyPreferenceController
     {
         setString(SQL_PACKAGE_NAME_KEY, e);
     }
+
+    public boolean getShowsSplash()
+    {
+        return getBoolean(SPLASH_KEY, SPLASH_DEFAULT);
+    }
+
+    public void setShowsSplash(boolean e)
+    {
+        setBoolean(SPLASH_KEY, e);
+    }
+
 }

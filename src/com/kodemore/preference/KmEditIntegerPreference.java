@@ -35,6 +35,7 @@ public class KmEditIntegerPreference
     //##################################################
     //# override
     //##################################################
+
     @Override
     protected String getPersistedString(String defaultReturnValue)
     {
