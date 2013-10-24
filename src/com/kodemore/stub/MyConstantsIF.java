@@ -3,7 +3,8 @@ package com.kodemore.stub;
 import com.kodemore.utility.Kmu;
 
 /**
- * todo_wyatt review entire class
+ * I define a number of application specific constants.
+ * All values should be carefully reviewed each time a new project is started.
  */
 public interface MyConstantsIF
 {
@@ -18,24 +19,31 @@ public interface MyConstantsIF
     boolean debugging                 = true;
 
     //##################################################
-    //# shared application folder
+    //# paths
     //##################################################
 
-    // review_steve: for external files - inserted this 
+    /**
+     * The application's package name.
+     * E.g.: "com.kodemore.stub".
+     * Defaults to the package of THIS class.
+     * Should match the package declared in AndroidManifest.xml.
+     */
+    String  APPLICATION_PACKAGE       = Kmu.getPackageName(MyConstantsIF.class);
+
     /**
      * This constant is assuming that the package of this class
      * is in the root folder.  Feel free to change the settings
      * based on your particular needs.
      */
-    String  SHARED_APPLICATION_FOLDER = Kmu.getPackageName(MyConstantsIF.class);
+    String  SHARED_APPLICATION_FOLDER = APPLICATION_PACKAGE;
 
     //##################################################
     //# smtp relay
     //##################################################
 
     /**
-     * We use an smtp relay to send emails, rather than relying on the normal 
-     * email apps.  This allows us to send emails in batch, without interrupting
+     * Some tools use an smtp relay to send emails, rather than relying on the normal 
+     * email apps.  This allows us to send emails in batch, and/or without interrupting
      * the user.  The smtp relay is limited to sending email, and cannot be used
      * to pop/fetch email messages.
      */

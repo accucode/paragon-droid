@@ -6,7 +6,6 @@ import org.acra.collector.CrashReportData;
 import com.kodemore.smtp.KmSmtpClient;
 import com.kodemore.smtp.KmSmtpSimpleMessage;
 import com.kodemore.string.KmStringBuilder;
-import com.kodemore.stub.MyConstantsIF;
 import com.kodemore.time.KmDate;
 import com.kodemore.utility.KmLog;
 import com.kodemore.utility.Kmu;
@@ -15,16 +14,17 @@ public class KmAcraEmailSender
     extends KmAcraReportSender
 {
     //##################################################
-    //# constants
+    //# variables
     //##################################################
 
-    /**
-     * todo_wyatt: remove all uses of "accucode".
-     */
+    private String _host;
+    private int    _port;
+    private String _user;
+    private String _password;
 
-    private static final String TO_ADDRESS     = "wlove@accucode.com";
-    private static final String FROM_ADDRESS   = "app@world.com";
-    private static final String SUBJECT_PREFIX = "crash report";
+    private String _toAddress;
+    private String _fromAddress;
+    private String _subjectPrefix;
 
     //##################################################
     //# constructor
@@ -36,21 +36,99 @@ public class KmAcraEmailSender
     }
 
     //##################################################
+    //# accessing
+    //##################################################
+
+    public String getHost()
+    {
+        return _host;
+    }
+
+    public void setHost(String e)
+    {
+        _host = e;
+    }
+
+    public int getPort()
+    {
+        return _port;
+    }
+
+    public void setPort(int e)
+    {
+        _port = e;
+    }
+
+    public String getUser()
+    {
+        return _user;
+    }
+
+    public void setUser(String e)
+    {
+        _user = e;
+    }
+
+    public String getPassword()
+    {
+        return _password;
+    }
+
+    public void setPassword(String e)
+    {
+        _password = e;
+    }
+
+    public String getToAddress()
+    {
+        return _toAddress;
+    }
+
+    public void setToAddress(String e)
+    {
+        _toAddress = e;
+    }
+
+    public String getFromAddress()
+    {
+        return _fromAddress;
+    }
+
+    public void setFromAddress(String e)
+    {
+        _fromAddress = e;
+    }
+
+    public String getSubjectPrefix()
+    {
+        return _subjectPrefix;
+    }
+
+    public void setSubjectPrefix(String e)
+    {
+        _subjectPrefix = e;
+    }
+
+    private String getSubject()
+    {
+        return getSubjectPrefix() + ", " + formatDate();
+    }
+
+    //##################################################
     //# override
     //##################################################
 
     @Override
     public void handleErrorReport(CrashReportData data)
     {
-        if ( isEmailEnabled() )
+        try
+        {
             sendToEmail(data);
-        else
+        }
+        catch ( Exception ex )
+        {
             sendToLog(data);
-    }
-
-    private boolean isEmailEnabled()
-    {
-        return MyConstantsIF.SMTP_RELAY_ENABLED;
+        }
     }
 
     //##################################################
@@ -59,24 +137,14 @@ public class KmAcraEmailSender
 
     private void sendToEmail(CrashReportData data)
     {
-        try
-        {
-            /**
-             * todo_wyatt: Km >> My
-             */
-
-            KmSmtpClient c;
-            c = new KmSmtpClient();
-            c.setHost(MyConstantsIF.SMTP_RELAY_HOST);
-            c.setPort(MyConstantsIF.SMTP_RELAY_PORT);
-            c.setUser(MyConstantsIF.SMTP_RELAY_USER);
-            c.setPassword(MyConstantsIF.SMTP_RELAY_PASSWORD);
-            c.setMessage(createMessage(data));
-        }
-        catch ( Exception ex )
-        {
-            sendToLog(data);
-        }
+        KmSmtpClient c;
+        c = new KmSmtpClient();
+        c.setHost(getHost());
+        c.setPort(getPort());
+        c.setUser(getUser());
+        c.setPassword(getPassword());
+        c.setMessage(createMessage(data));
+        c.send();
     }
 
     private void sendToLog(CrashReportData data)
@@ -119,21 +187,6 @@ public class KmAcraEmailSender
         return e;
     }
 
-    private String getFromAddress()
-    {
-        return FROM_ADDRESS;
-    }
-
-    private String getToAddress()
-    {
-        return TO_ADDRESS;
-    }
-
-    private String getSubject()
-    {
-        return SUBJECT_PREFIX + ", " + formatDate();
-    }
-
     //##################################################
     //# support
     //##################################################
@@ -154,35 +207,4 @@ public class KmAcraEmailSender
         return out.toString();
     }
 
-    /**
-     * todo_wyatt: attachment 
-     */
-    //    //==================================================
-    //    //= utility (email attachments)
-    //    //==================================================
-    //
-    //    private KmSmtpAttachment getAttachment(CrashReportData report)
-    //    {
-    //        return getLogcatAttachment(report);
-    //    }
-    //
-    //    private KmSmtpAttachment getLogcatAttachment(CrashReportData report)
-    //    {
-    //        String contents = report.get(ReportField.LOGCAT);
-    //        Uri uri = writeAttachment(contents);
-    //
-    //        KmSmtpAttachment attach;
-    //        attach = new KmSmtpAttachment(uri, LOGCAT_FILE_NAME);
-    //        attach.setContent(KmSmtpContentType.FILE);
-    //
-    //        return attach;
-    //    }
-    //
-    //    private Uri writeAttachment(String s)
-    //    {
-    //        KmFilePath file;
-    //        file = new KmApplicationFilePath(LOGCAT_FILE_NAME);
-    //        file.writeBytes(s.getBytes());
-    //        return file.toUri();
-    //    }
 }
