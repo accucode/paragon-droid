@@ -29,14 +29,14 @@ package com.kodemore.preference;
  * I simply override the otherwise protected property
  * access methods.
  */
-public class KmSimplePreferenceController
-    extends KmAbstractPreferenceController
+public class KmSimplePreferenceWrapper
+    extends KmAbstractPreferenceWrapper
 {
     //##################################################
     //# constructor
     //##################################################
 
-    public KmSimplePreferenceController(String name)
+    public KmSimplePreferenceWrapper(String name)
     {
         super(name);
     }

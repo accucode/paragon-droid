@@ -22,7 +22,7 @@
 
 package com.kodemore.test;
 
-import com.kodemore.preference.KmSimplePreferenceController;
+import com.kodemore.preference.KmSimplePreferenceWrapper;
 
 /**
  * Compare to TyPreferencesSeparate1Activity 
@@ -31,9 +31,9 @@ public class TyPreferencesSeparate2Activity
     extends TyAbstractPreferencesActivity
 {
     @Override
-    protected KmSimplePreferenceController getTestPreferences()
+    protected KmSimplePreferenceWrapper getTestPreferences()
     {
         String groupName = "Two";
-        return new KmSimplePreferenceController(groupName);
+        return new KmSimplePreferenceWrapper(groupName);
     }
 }

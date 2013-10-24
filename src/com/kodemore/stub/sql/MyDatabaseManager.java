@@ -5,7 +5,7 @@ import com.kodemore.file.KmFilePath;
 import com.kodemore.sql.KmSqlDatabase;
 import com.kodemore.sql.KmSqlPackage;
 import com.kodemore.sql.KmSqlPackageManager;
-import com.kodemore.stub.MyPreferenceController;
+import com.kodemore.stub.MyPreferenceWrapper;
 import com.kodemore.utility.KmTaskIF;
 import com.kodemore.utility.Kmu;
 
@@ -214,9 +214,9 @@ public class MyDatabaseManager
     //# support
     //##################################################
 
-    private MyPreferenceController getPreferences()
+    private MyPreferenceWrapper getPreferences()
     {
-        return new MyPreferenceController();
+        return new MyPreferenceWrapper();
     }
 
     private void fatal(String msg, Object... args)

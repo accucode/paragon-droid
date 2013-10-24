@@ -22,7 +22,7 @@
 
 package com.kodemore.test;
 
-import com.kodemore.preference.KmSimplePreferenceController;
+import com.kodemore.preference.KmSimplePreferenceWrapper;
 
 /**
  * Demonstrate how preferences are persisted as distinct groups
@@ -38,9 +38,9 @@ public class TyPreferencesSeparate1Activity
     extends TyAbstractPreferencesActivity
 {
     @Override
-    protected KmSimplePreferenceController getTestPreferences()
+    protected KmSimplePreferenceWrapper getTestPreferences()
     {
         String groupOne = "One";
-        return new KmSimplePreferenceController(groupOne);
+        return new KmSimplePreferenceWrapper(groupOne);
     }
 }

@@ -24,7 +24,7 @@ package com.kodemore.test;
 
 import android.view.View;
 
-import com.kodemore.preference.KmSimplePreferenceController;
+import com.kodemore.preference.KmSimplePreferenceWrapper;
 import com.kodemore.view.KmAction;
 import com.kodemore.view.KmActivity;
 import com.kodemore.view.KmColumnLayout;
@@ -97,7 +97,7 @@ public abstract class TyAbstractPreferencesActivity
     //# abstract
     //##################################################
 
-    protected abstract KmSimplePreferenceController getTestPreferences();
+    protected abstract KmSimplePreferenceWrapper getTestPreferences();
 
     //##################################################
     //# action
@@ -133,7 +133,7 @@ public abstract class TyAbstractPreferencesActivity
 
     private void handleRead()
     {
-        KmSimplePreferenceController pp = getTestPreferences();
+        KmSimplePreferenceWrapper pp = getTestPreferences();
 
         String color = pp.getString(KEY_COLOR);
         Integer size = pp.getInteger(KEY_SIZE);
@@ -149,7 +149,7 @@ public abstract class TyAbstractPreferencesActivity
         String color = _colorField.getValue();
         Integer size = _sizeField.getValue();
 
-        KmSimplePreferenceController pp;
+        KmSimplePreferenceWrapper pp;
         pp = getTestPreferences();
         pp.setString(KEY_COLOR, color);
         pp.setInteger(KEY_SIZE, size);

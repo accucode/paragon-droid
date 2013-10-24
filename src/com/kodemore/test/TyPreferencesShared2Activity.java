@@ -22,7 +22,7 @@
 
 package com.kodemore.test;
 
-import com.kodemore.preference.KmSimplePreferenceController;
+import com.kodemore.preference.KmSimplePreferenceWrapper;
 
 /**
  * Demonstrate preferences that are shared between the activities.
@@ -31,9 +31,9 @@ public class TyPreferencesShared2Activity
     extends TyAbstractPreferencesActivity
 {
     @Override
-    protected KmSimplePreferenceController getTestPreferences()
+    protected KmSimplePreferenceWrapper getTestPreferences()
     {
         String groupName = "common";
-        return new KmSimplePreferenceController(groupName);
+        return new KmSimplePreferenceWrapper(groupName);
     }
 }

@@ -3,7 +3,7 @@ package com.kodemore.stub.ui;
 import com.kodemore.preference.KmBooleanComponentBuilder;
 import com.kodemore.preference.KmPreferenceActivity;
 import com.kodemore.preference.KmPreferenceActivityHelper;
-import com.kodemore.stub.MyPreferenceController;
+import com.kodemore.stub.MyPreferenceWrapper;
 
 /**
  * A starting point for application wide preferences.
@@ -19,7 +19,7 @@ public class MyPreferencesActivity
     protected void installPreferenceScreen()
     {
         KmPreferenceActivityHelper scr;
-        scr = newHelper(MyPreferenceController.NAME);
+        scr = newHelper(MyPreferenceWrapper.NAME);
 
         scr.add(newSplashPreference());
 
@@ -34,8 +34,8 @@ public class MyPreferencesActivity
     {
         KmBooleanComponentBuilder e;
         e = new KmBooleanComponentBuilder();
-        e.setKey(MyPreferenceController.SPLASH_KEY);
-        e.setDefaultValue(MyPreferenceController.SPLASH_DEFAULT);
+        e.setKey(MyPreferenceWrapper.SPLASH_KEY);
+        e.setDefaultValue(MyPreferenceWrapper.SPLASH_DEFAULT);
         e.setTitle("Enable splash screen?");
         e.setTrueSummary("Splash screen is enabled");
         e.setFalseSummary("Splash screen is disabled");

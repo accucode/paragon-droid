@@ -87,7 +87,7 @@ import com.kodemore.utility.Kmu;
  * subclass that wraps access and insulates the various 
  * clients from the low level details.
  */
-public abstract class KmAbstractPreferenceController
+public abstract class KmAbstractPreferenceWrapper
 {
     //##################################################
     //# variables
@@ -101,7 +101,7 @@ public abstract class KmAbstractPreferenceController
     //# constructor
     //##################################################
 
-    public KmAbstractPreferenceController(String name)
+    public KmAbstractPreferenceWrapper(String name)
     {
         _name = name;
         _editor = null;

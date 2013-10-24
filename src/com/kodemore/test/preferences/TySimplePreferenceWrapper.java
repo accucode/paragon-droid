@@ -24,15 +24,15 @@ package com.kodemore.test.preferences;
 
 import android.content.Context;
 
-import com.kodemore.preference.KmAbstractPreferenceController;
+import com.kodemore.preference.KmAbstractPreferenceWrapper;
 
 /**
  * I provide a sample of how an application might 
  * access complex preferences that are backed by a 
  * PreferenceManager.
  */
-public class TySimplePreferenceController
-    extends KmAbstractPreferenceController
+public class TySimplePreferenceWrapper
+    extends KmAbstractPreferenceWrapper
 {
     //##################################################
     //# constants
@@ -49,7 +49,7 @@ public class TySimplePreferenceController
     //# constructor
     //##################################################
 
-    public TySimplePreferenceController(Context context)
+    public TySimplePreferenceWrapper(Context context)
     {
         super(PREFERENCES_NAME);
     }

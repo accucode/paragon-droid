@@ -1,9 +1,9 @@
 package com.kodemore.stub;
 
-import com.kodemore.preference.KmAbstractPreferenceController;
+import com.kodemore.preference.KmAbstractPreferenceWrapper;
 
-public class MyPreferenceController
-    extends KmAbstractPreferenceController
+public class MyPreferenceWrapper
+    extends KmAbstractPreferenceWrapper
 {
     //##################################################
     //# constants
@@ -28,7 +28,7 @@ public class MyPreferenceController
     //# constructor
     //##################################################
 
-    public MyPreferenceController()
+    public MyPreferenceWrapper()
     {
         super(NAME);
     }

@@ -58,7 +58,7 @@ public class MyApplication
 
     private void installDeviceUid()
     {
-        MyPreferenceController p = new MyPreferenceController();
+        MyPreferenceWrapper p = new MyPreferenceWrapper();
         String uid = p.getDeviceUid();
 
         if ( uid == null )
