@@ -140,7 +140,7 @@ public class TySmtpMailActivity
 
         KmSmtpAttachment attach;
         attach = new KmSmtpAttachment();
-        attach.setUri(fileUri);
+        attach.setFileUri(fileUri);
         attach.setFileName(FILE_NAME);
 
         KmSmtpSimpleMessage msg;

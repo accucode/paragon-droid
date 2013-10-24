@@ -37,26 +37,27 @@ public class KmSmtpAttachment
     }
 
     //##################################################
-    //# accessing
+    //# file uri 
     //##################################################
 
-    public Uri getUri()
+    public Uri getFileUri()
     {
         return _fileUri;
     }
 
-    /**
-     * fixme_wyatt: naming?
-    */
-    public void setUri(Uri e)
+    public void setFileUri(Uri e)
     {
         _fileUri = e;
     }
 
-    public boolean hasUri()
+    public boolean hasFileUri()
     {
-        return getUri() != null;
+        return getFileUri() != null;
     }
+
+    //##################################################
+    //# file name
+    //##################################################
 
     public String getFileName()
     {
@@ -74,27 +75,27 @@ public class KmSmtpAttachment
     }
 
     //##################################################
-    //# content
+    //# file type
     //##################################################
 
-    public KmSmtpContentType getContent()
+    public KmSmtpContentType getFileType()
     {
         return _fileType;
     }
 
-    public String getContentType()
-    {
-        return getContent().getContentType();
-    }
-
-    public void setContent(KmSmtpContentType e)
+    public void setFileType(KmSmtpContentType e)
     {
         _fileType = e;
     }
 
-    public boolean hasContent()
+    public String getFileTypeName()
     {
-        return getContent() != null;
+        return getFileType().getContentTypeName();
+    }
+
+    public boolean hasFileType()
+    {
+        return getFileType() != null;
     }
 
     //##################################################
@@ -106,7 +107,7 @@ public class KmSmtpAttachment
         return _fileType.getEncoding();
     }
 
-    public String getEncodingType()
+    public String getEncodingName()
     {
         return getEncoding().getType();
     }
@@ -117,7 +118,7 @@ public class KmSmtpAttachment
 
     public boolean isValidAttachment()
     {
-        return hasContent() && hasUri() && hasFileName();
+        return hasFileType() && hasFileUri() && hasFileName();
     }
 
     //##################################################

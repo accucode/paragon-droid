@@ -54,13 +54,13 @@ public class MyBridge
         return null;
     }
 
-    /**
-     * todo_wyatt: review
-     */
     @Override
     public String getSharedApplicationFolder()
     {
-        String external = Environment.getExternalStorageDirectory().getPath();
-        return Kmu.joinPath(external, "Android/Shared", MyConstantsIF.SHARED_APPLICATION_FOLDER);
+        String externalPath = Environment.getExternalStorageDirectory().getPath();
+        String sharedPath = "Android/Shared";
+        String appPath = MyConstantsIF.SHARED_APPLICATION_FOLDER;
+
+        return Kmu.joinPath(externalPath, sharedPath, appPath);
     }
 }

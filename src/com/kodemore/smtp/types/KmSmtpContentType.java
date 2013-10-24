@@ -2,32 +2,48 @@ package com.kodemore.smtp.types;
 
 public enum KmSmtpContentType
 {
+    //##################################################
+    //# values
+    //##################################################
+
     TEXT("text/plain", KmSmtpEncoding.ISO8859),
     HTML("text/html", KmSmtpEncoding.ISO8859),
     FILE("application/octet-stream", KmSmtpEncoding.BASE64),
     PDF("application/pdf", KmSmtpEncoding.BASE64);
 
-    private final String         _content;
-    private final KmSmtpEncoding _kmSmtpEncoding;
+    //##################################################
+    //# variables
+    //##################################################
 
-    private KmSmtpContentType(String content, KmSmtpEncoding kmSmtpEncoding)
+    private final String         _content;
+    private final KmSmtpEncoding _encoding;
+
+    //##################################################
+    //# constructor
+    //##################################################
+
+    private KmSmtpContentType(String content, KmSmtpEncoding encoding)
     {
         _content = content;
-        _kmSmtpEncoding = kmSmtpEncoding;
+        _encoding = encoding;
     }
 
-    public String getContentType()
+    //##################################################
+    //# accessing
+    //##################################################
+
+    public String getContentTypeName()
     {
         return _content;
     }
 
     public KmSmtpEncoding getEncoding()
     {
-        return _kmSmtpEncoding;
+        return _encoding;
     }
 
-    public String getEncodingType()
+    public String getEncodingTypeName()
     {
-        return _kmSmtpEncoding.getType();
+        return _encoding.getType();
     }
 }

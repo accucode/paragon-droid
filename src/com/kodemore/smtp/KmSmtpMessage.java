@@ -372,9 +372,9 @@ public abstract class KmSmtpMessage
         KmSmtpContentType type = KmSmtpContentType.TEXT;
 
         writeln("Content-type: "
-            + type.getContentType()
+            + type.getContentTypeName()
             + "; charset=\""
-            + type.getEncodingType()
+            + type.getEncodingTypeName()
             + "\"");
         writeln();
         write(body);
@@ -386,9 +386,9 @@ public abstract class KmSmtpMessage
         KmSmtpContentType type = KmSmtpContentType.HTML;
 
         writeln("Content-type: "
-            + type.getContentType()
+            + type.getContentTypeName()
             + "; charset=\""
-            + type.getEncodingType()
+            + type.getEncodingTypeName()
             + "\"");
         writeln("Content-Disposition: inline");
         writeln("Content-Transfer-Encoding: quoted-printable");
@@ -505,9 +505,9 @@ public abstract class KmSmtpMessage
             return;
 
         writeBoundary();
-        writeln("Content-Type: " + e.getContentType() + "; name=\"" + e.getFileName() + "\"");
+        writeln("Content-Type: " + e.getFileTypeName() + "; name=\"" + e.getFileName() + "\"");
         writeln("Content-Disposition: attachment; filename=\"" + e.getFileName() + "\"");
-        writeln("Content-Transfer-Encoding: " + e.getEncodingType());
+        writeln("Content-Transfer-Encoding: " + e.getEncodingName());
         writeln();
 
         FileInputStream in = null;
