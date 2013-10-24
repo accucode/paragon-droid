@@ -35,7 +35,7 @@ public class KmQuantityField
     //##################################################
 
     private final static Integer SCALE     = KmQuantity.SCALE;
-    private final static Integer PRECISION = KmQuantity.MAX_PRECISION;
+    private final static Integer PRECISION = KmQuantity.DATABASE_PRECISION;
 
     //##################################################
     //# variables

@@ -33,17 +33,11 @@ public class KmQuantity
     //# constants
     //##################################################
 
-    public static final int        SCALE     = 1;
-    public static final int        MAX_PRECISION = 21;
+    public static final KmQuantity ZERO               = new KmQuantity(0);
+    public static final KmQuantity ONE                = new KmQuantity(1);
 
-    public static final KmQuantity ZERO      = new KmQuantity(0);
-    public static final KmQuantity ONE       = new KmQuantity(1);
-
-    //##################################################
-    //# variables
-    //##################################################
-
-    //    public int                     _scale    = SCALE;
+    public static final int        SCALE              = 1;
+    public static final int        DATABASE_PRECISION = 21;
 
     //##################################################
     //# static 
@@ -125,12 +119,6 @@ public class KmQuantity
     //##################################################
     //# policy
     //##################################################
-
-    @Override
-    public int getMaxPrecision()
-    {
-        return MAX_PRECISION;
-    }
 
     @Override
     public int getScale()

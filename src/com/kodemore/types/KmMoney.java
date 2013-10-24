@@ -38,10 +38,9 @@ public class KmMoney
     //# constants
     //##################################################
 
-    public static final int     SCALE         = KmMoneyField.SCALE;
-    public static final int     MAX_PRECISION = KmMoneyField.PRECISION;
+    public static final KmMoney ZERO  = new KmMoney(0);
 
-    public static final KmMoney ZERO          = new KmMoney(0);
+    private static final int    SCALE = KmMoneyField.SCALE;
 
     //##################################################
     //# static 
@@ -129,12 +128,6 @@ public class KmMoney
     //##################################################
     //# policy
     //##################################################
-
-    @Override
-    public int getMaxPrecision()
-    {
-        return MAX_PRECISION;
-    }
 
     @Override
     public int getScale()

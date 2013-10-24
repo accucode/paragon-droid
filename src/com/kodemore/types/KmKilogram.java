@@ -38,10 +38,9 @@ public class KmKilogram
     //# constants
     //##################################################
 
-    public static final int        MAX_PRECISION = 12;
-    public static final int        SCALE     = 5;
+    public static final KmKilogram ZERO  = new KmKilogram(0);
 
-    public static final KmKilogram ZERO      = new KmKilogram(0);
+    private static final int       SCALE = 5;
 
     //##################################################
     //# constructor
@@ -65,12 +64,6 @@ public class KmKilogram
     //##################################################
     //# policy
     //##################################################
-
-    @Override
-    public int getMaxPrecision()
-    {
-        return MAX_PRECISION;
-    }
 
     @Override
     public int getScale()

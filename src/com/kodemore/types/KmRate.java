@@ -31,10 +31,12 @@ public class KmRate
     //# constants
     //##################################################
 
+    // todo_wyatt: db
     public static final int    MAX_PRECISION = 20;
-    public static final int    SCALE     = 8;
 
-    public static final KmRate ZERO      = new KmRate(0);
+    public static final int    SCALE         = 8;
+
+    public static final KmRate ZERO          = new KmRate(0);
 
     //##################################################
     //# constructor
@@ -58,12 +60,6 @@ public class KmRate
     //##################################################
     //# policy
     //##################################################
-
-    @Override
-    public int getMaxPrecision()
-    {
-        return MAX_PRECISION;
-    }
 
     @Override
     public int getScale()

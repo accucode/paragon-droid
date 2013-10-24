@@ -32,33 +32,22 @@ import com.kodemore.utility.KmDisplayStringIF;
 import com.kodemore.utility.Kmu;
 
 /**
- * I represent weight in kilograms. I provide utility methods for
- * displaying weights at the proper scale and formatting weight to
- * a database scale (independent of the display scale).
- *
+ * I represent decimal values that have a fixed number of places
+ * to the right of the decimal, but which have unlimited precision
+ * (unlimited digits to the left of the decimal).
+ * 
  * IMPORTANT: This class should NOT be used when running calculations
  * against large sets of data, as I wrap the KmDecimal. See KmDecimal
  * for more details.
- *
  */
 public abstract class KmFixedDecimal<T extends KmFixedDecimal<?>>
     implements KmDisplayStringIF, Comparable<KmFixedDecimal<?>>, Cloneable, Serializable
 {
     //##################################################
-    //# constants (template keys)
-    //##################################################
-
-    public static final String      VALUE_KEY          = "value";
-    public static final String      DATABASE_SCALE_KEY = "databaseScale";
-    public static final String      DISPLAY_SCALE_KEY  = "displayScale";
-
-    private static final BigDecimal THOUSAND           = new BigDecimal("1000");
-
-    //##################################################
     //# variables
     //##################################################
 
-    private BigDecimal              _value;
+    private BigDecimal _value;
 
     //##################################################
     //# constructor
@@ -119,19 +108,7 @@ public abstract class KmFixedDecimal<T extends KmFixedDecimal<?>>
 
     private BigDecimal newBigDecimal(BigDecimal value)
     {
-        BigDecimal e = scale(value);
-        validate(e);
-        return e;
-    }
-
-    private void validate(BigDecimal e)
-    {
-        if ( e.precision() > getMaxPrecision() )
-            Kmu.fatal(
-                "%s with precision of %s exceeds maximum precision of %s.",
-                e.toPlainString(),
-                e.precision(),
-                getMaxPrecision());
+        return scale(value);
     }
 
     private BigDecimal scale(BigDecimal e)
@@ -142,8 +119,6 @@ public abstract class KmFixedDecimal<T extends KmFixedDecimal<?>>
     //##################################################
     //# policy
     //##################################################
-
-    public abstract int getMaxPrecision();
 
     public abstract int getScale();
 
@@ -443,84 +418,76 @@ public abstract class KmFixedDecimal<T extends KmFixedDecimal<?>>
         return format(displayScale, commas);
     }
 
+    //##################################################
+    //# format
+    //##################################################
+
     public String format(int scale, boolean commas)
     {
-        return _format(_value, commas, scale);
+        return _format(_value, scale, commas);
     }
 
-    private String formatValueToScale(BigDecimal source, int scale)
+    private String format(BigDecimal source, int scale)
     {
-        return _format(source, true, scale);
+        return _format(source, scale, true);
     }
 
-    private String _format(BigDecimal source, boolean commas, int scale)
+    private String _format(BigDecimal source, int scale, boolean commas)
     {
-        source = source.setScale(scale, getRoundingMode());
+        BigDecimal rounded;
+        rounded = source.setScale(scale, getRoundingMode());
 
         String pattern;
         pattern = createPattern(scale, commas);
 
-        DecimalFormat formatter;
-        formatter = getFormatterUsing(pattern);
+        DecimalFormat format;
+        format = new DecimalFormat(pattern);
 
-        return formatter.format(source);
+        return format.format(rounded);
     }
 
     private String createPattern(int scale, boolean commas)
     {
-        String prefix = commas
+        String s = commas
             ? ",##0"
             : "0";
 
-        String suffix = scale > 0
-            ? "." + getFractionPatternForScale(scale)
-            : getFractionPatternForScale(scale);
+        if ( scale > 0 )
+            s += ".";
 
-        return prefix + suffix;
+        return s + getFractionPatternForScale(scale);
     }
 
     /**
-     * The purpose of this method is to format a large number into a more
-     * compact format.  First we check to see if the absolute value of the
-     * original number is greater than 1000; if not, we format it and return
-     * it unchanged.  Next we multiply our original 1000 by 1000 and
-     * do the comparison again.  If we find our value is less than our factor
-     * we normalize it, format it then return the value followed with the 
-     * appropriate suffix.  This is repeated for each suffix in our list.  
-     * If we run out of suffixes to try we return a message indicating a
-     * very large number beyond the applications ability to render it.
+     * Format a short version of this value.
+     * If the value is less than a 1000 use the standard scale.
+     * Otherwise, attempt to reduce the value to thousands, millions,
+     * etc; with the associated abbreviation.
+     * Examples:
+     *      12.3 >> 12.3
+     *      1,234.56 >> 1.2 K
+     *      12,234,567.89 >> 1.2 M  
      */
     public String getShortDisplayString()
     {
-        BigDecimal factor = THOUSAND;
-        KmList<String> suffixes;
-        suffixes = createSuffixList();
-
+        BigDecimal K = new BigDecimal("1000");
         BigDecimal temp = getRoundedValue();
 
-        // If value is negative, negate comparison value.
-        // The temp value is used to determine the factor.
-        // The formatRounded class deals with negative numbers.
-        if ( isNegative() )
-            temp = temp.negate();
+        if ( isLessThan(temp.abs(), K) )
+            return format(temp, getScale());
 
-        // If the temp value is less than 1000 format it and return the value.
-        if ( isTempValueLessThanFactor(temp, factor) )
-            return formatValueToScale(getRoundedValue(), getScale());
-
-        // The temp value is used to determine the factor required to format our value.
-        for ( String suffix : suffixes )
+        for ( String suffix : getSuffixes() )
         {
-            factor = factor.multiply(THOUSAND);
+            temp = temp.divide(K);
 
-            if ( isTempValueLessThanFactor(temp, factor) )
-                return formatValueToScale(getNormalizedValue(factor), 1) + " " + suffix;
+            if ( isLessThan(temp.abs(), K) )
+                return format(temp, 1) + " " + suffix;
         }
 
         return "Overflow";
     }
 
-    private KmList<String> createSuffixList()
+    private KmList<String> getSuffixes()
     {
         KmList<String> v;
         v = new KmList<String>();
@@ -533,18 +500,12 @@ public abstract class KmFixedDecimal<T extends KmFixedDecimal<?>>
     }
 
     //##################################################
-    //# convenience
+    //# utility
     //##################################################
 
-    private boolean isTempValueLessThanFactor(BigDecimal tempValue, BigDecimal factor)
+    private boolean isLessThan(BigDecimal a, BigDecimal b)
     {
-        return tempValue.compareTo(factor) == -1;
-    }
-
-    private BigDecimal getNormalizedValue(BigDecimal factor)
-    {
-        // Factor is used to shift the decimal so we can format the value.
-        return getRoundedValue().divide(factor).multiply(THOUSAND);
+        return a.compareTo(b) < 0;
     }
 
     private BigDecimal getRoundedValue()
@@ -560,11 +521,6 @@ public abstract class KmFixedDecimal<T extends KmFixedDecimal<?>>
     private String getFractionPatternForScale(int scale)
     {
         return Kmu.repeat('0', scale);
-    }
-
-    private DecimalFormat getFormatterUsing(String pattern)
-    {
-        return new DecimalFormat(pattern);
     }
 
 }
