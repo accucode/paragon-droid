@@ -22,7 +22,7 @@
 
 package com.kodemore.test;
 
-import com.kodemore.preference.KmSimplePreferenceWrapper;
+import com.kodemore.preference.wrapper.KmSimplePreferenceWrapper;
 
 /**
  * Demonstrate how preferences are persisted as distinct groups

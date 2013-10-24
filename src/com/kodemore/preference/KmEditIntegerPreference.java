@@ -5,6 +5,10 @@ import android.preference.EditTextPreference;
 
 import com.kodemore.utility.Kmu;
 
+/**
+ * I extend the default built-in EditTextPreference to provide better
+ * editing for integer values.
+ */
 public class KmEditIntegerPreference
     extends EditTextPreference
 {

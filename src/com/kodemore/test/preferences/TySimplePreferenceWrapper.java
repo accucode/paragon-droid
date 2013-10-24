@@ -24,7 +24,7 @@ package com.kodemore.test.preferences;
 
 import android.content.Context;
 
-import com.kodemore.preference.KmAbstractPreferenceWrapper;
+import com.kodemore.preference.wrapper.KmAbstractPreferenceWrapper;
 
 /**
  * I provide a sample of how an application might 

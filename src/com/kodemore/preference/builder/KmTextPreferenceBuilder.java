@@ -20,7 +20,7 @@
   THE SOFTWARE.
  */
 
-package com.kodemore.preference;
+package com.kodemore.preference.builder;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -32,21 +32,24 @@ import android.widget.EditText;
 
 import com.kodemore.utility.KmLog;
 
-public abstract class KmAbstractTextPreference<T>
-    extends KmAbstractPreference<T>
+/**
+ * See superclass.
+ */
+public abstract class KmTextPreferenceBuilder<T>
+    extends KmPreferenceBuilder<T>
 {
     //##################################################
     //# constructor
-    //##################################################//
+    //##################################################
 
-    public KmAbstractTextPreference()
+    public KmTextPreferenceBuilder()
     {
         super();
     }
 
     //##################################################
     //# accessing
-    //##################################################//
+    //##################################################
 
     protected String getRawValue(SharedPreferences pp)
     {
@@ -88,8 +91,8 @@ public abstract class KmAbstractTextPreference<T>
         p.setDefaultValue(getDefaultValue());
         p.setTitle(getTitle());
         p.setDialogTitle(getTitle());
-        p.setSummary(formatSummary(getValue(prefs)));
-        p.setOnPreferenceChangeListener(newEchoListener());
+        p.setSummary(formatSummaryFor(getValue(prefs)));
+        p.setOnPreferenceChangeListener(newChangeListener());
 
         EditText field;
         field = p.getEditText();

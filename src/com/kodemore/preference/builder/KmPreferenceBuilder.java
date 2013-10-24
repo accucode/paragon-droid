@@ -20,7 +20,7 @@
   THE SOFTWARE.
  */
 
-package com.kodemore.preference;
+package com.kodemore.preference.builder;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -30,7 +30,14 @@ import android.preference.PreferenceScreen;
 
 import com.kodemore.utility.KmString;
 
-public abstract class KmAbstractComponentBuilder<T>
+/**
+ * I simplify the process of composing preference activities.
+ * Without the builders, composing PreferenceActivities programmatically
+ * is unduly complex and error prone. 
+ * 
+ * See MyPreferenceActivity for an example.
+ */
+public abstract class KmPreferenceBuilder<T>
 {
     //##################################################
     //# variables
@@ -44,7 +51,7 @@ public abstract class KmAbstractComponentBuilder<T>
     //# constructor
     //##################################################
 
-    public KmAbstractComponentBuilder()
+    public KmPreferenceBuilder()
     {
         // none
     }

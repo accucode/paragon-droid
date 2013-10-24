@@ -1,6 +1,6 @@
 package com.kodemore.stub;
 
-import com.kodemore.preference.KmAbstractPreferenceWrapper;
+import com.kodemore.preference.wrapper.KmAbstractPreferenceWrapper;
 
 public class MyPreferenceWrapper
     extends KmAbstractPreferenceWrapper

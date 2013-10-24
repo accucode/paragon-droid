@@ -20,7 +20,7 @@
   THE SOFTWARE.
  */
 
-package com.kodemore.preference;
+package com.kodemore.preference.builder;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -30,17 +30,21 @@ import android.text.InputFilter;
 import android.widget.EditText;
 
 import com.kodemore.filter.KmIntegerFilter;
+import com.kodemore.preference.KmEditIntegerPreference;
 import com.kodemore.utility.KmLog;
 import com.kodemore.utility.KmString;
 
-public class KmIntegerComponentBuilder
-    extends KmAbstractComponentBuilder<Integer>
+/**
+ * See superclass.
+ */
+public class KmIntegerPreferenceBuilder
+    extends KmPreferenceBuilder<Integer>
 {
     //##################################################
     //# constructor
     //##################################################
 
-    public KmIntegerComponentBuilder()
+    public KmIntegerPreferenceBuilder()
     {
         super();
     }

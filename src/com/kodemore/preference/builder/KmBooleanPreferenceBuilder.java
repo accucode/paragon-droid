@@ -20,15 +20,18 @@
   THE SOFTWARE.
  */
 
-package com.kodemore.preference;
+package com.kodemore.preference.builder;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceScreen;
 
-public class KmBooleanComponentBuilder
-    extends KmAbstractComponentBuilder<Boolean>
+/**
+ * See superclass.
+ */
+public class KmBooleanPreferenceBuilder
+    extends KmPreferenceBuilder<Boolean>
 {
     //##################################################
     //# vairables
@@ -41,7 +44,7 @@ public class KmBooleanComponentBuilder
     //# constructor
     //##################################################
 
-    public KmBooleanComponentBuilder()
+    public KmBooleanPreferenceBuilder()
     {
         setTrueSummary("On");
         setFalseSummary("Off");

@@ -22,10 +22,10 @@
 
 package com.kodemore.test.preferences;
 
-import com.kodemore.preference.KmBooleanComponentBuilder;
-import com.kodemore.preference.KmIntegerComponentBuilder;
-import com.kodemore.preference.KmListComponentBuilder;
-import com.kodemore.preference.KmStringComponentBuilder;
+import com.kodemore.preference.builder.KmBooleanPreferenceBuilder;
+import com.kodemore.preference.builder.KmIntegerPreferenceBuilder;
+import com.kodemore.preference.builder.KmListPreferenceBuilder;
+import com.kodemore.preference.builder.KmStringPreferenceBuilder;
 
 public class TyPreferenceManager
 {
@@ -44,10 +44,10 @@ public class TyPreferenceManager
     //# variables
     //##################################################
 
-    private KmBooleanComponentBuilder _enabled;
-    private KmListComponentBuilder    _color;
-    private KmStringComponentBuilder  _email;
-    private KmIntegerComponentBuilder _size;
+    private KmBooleanPreferenceBuilder _enabled;
+    private KmListPreferenceBuilder    _color;
+    private KmStringPreferenceBuilder  _email;
+    private KmIntegerPreferenceBuilder _size;
 
     //##################################################
     //# constructor
@@ -61,20 +61,20 @@ public class TyPreferenceManager
         _size = newSize();
     }
 
-    private KmBooleanComponentBuilder newEnabled()
+    private KmBooleanPreferenceBuilder newEnabled()
     {
-        KmBooleanComponentBuilder e;
-        e = new KmBooleanComponentBuilder();
+        KmBooleanPreferenceBuilder e;
+        e = new KmBooleanPreferenceBuilder();
         e.setKey("enabled");
         e.setTitle("Enabled");
         e.setDefaultValue(true);
         return e;
     }
 
-    private KmListComponentBuilder newColor()
+    private KmListPreferenceBuilder newColor()
     {
-        KmListComponentBuilder e;
-        e = new KmListComponentBuilder();
+        KmListPreferenceBuilder e;
+        e = new KmListPreferenceBuilder();
         e.setKey("color");
         e.setTitle("Color");
         e.setDefaultValue("white");
@@ -88,19 +88,19 @@ public class TyPreferenceManager
         return e;
     }
 
-    private KmStringComponentBuilder newEmail()
+    private KmStringPreferenceBuilder newEmail()
     {
-        KmStringComponentBuilder e;
-        e = new KmStringComponentBuilder();
+        KmStringPreferenceBuilder e;
+        e = new KmStringPreferenceBuilder();
         e.setKey("email");
         e.setTitle("Email");
         return e;
     }
 
-    private KmIntegerComponentBuilder newSize()
+    private KmIntegerPreferenceBuilder newSize()
     {
-        KmIntegerComponentBuilder e;
-        e = new KmIntegerComponentBuilder();
+        KmIntegerPreferenceBuilder e;
+        e = new KmIntegerPreferenceBuilder();
         e.setKey("size");
         e.setTitle("Size");
         return e;
@@ -110,22 +110,22 @@ public class TyPreferenceManager
     //# accessing
     //##################################################
 
-    public KmBooleanComponentBuilder getEnabled()
+    public KmBooleanPreferenceBuilder getEnabled()
     {
         return _enabled;
     }
 
-    public KmListComponentBuilder getColor()
+    public KmListPreferenceBuilder getColor()
     {
         return _color;
     }
 
-    public KmStringComponentBuilder getEmail()
+    public KmStringPreferenceBuilder getEmail()
     {
         return _email;
     }
 
-    public KmIntegerComponentBuilder getSize()
+    public KmIntegerPreferenceBuilder getSize()
     {
         return _size;
     }

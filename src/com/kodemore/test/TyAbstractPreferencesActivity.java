@@ -24,7 +24,7 @@ package com.kodemore.test;
 
 import android.view.View;
 
-import com.kodemore.preference.KmSimplePreferenceWrapper;
+import com.kodemore.preference.wrapper.KmSimplePreferenceWrapper;
 import com.kodemore.view.KmAction;
 import com.kodemore.view.KmActivity;
 import com.kodemore.view.KmColumnLayout;

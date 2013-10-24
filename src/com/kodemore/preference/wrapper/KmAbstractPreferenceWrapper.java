@@ -20,7 +20,7 @@
   THE SOFTWARE.
  */
 
-package com.kodemore.preference;
+package com.kodemore.preference.wrapper;
 
 import android.content.Context;
 import android.content.SharedPreferences;

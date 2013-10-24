@@ -20,7 +20,7 @@
   THE SOFTWARE.
  */
 
-package com.kodemore.preference;
+package com.kodemore.preference.activity;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;

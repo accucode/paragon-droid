@@ -1,8 +1,8 @@
 package com.kodemore.stub.ui;
 
-import com.kodemore.preference.KmBooleanComponentBuilder;
-import com.kodemore.preference.KmPreferenceActivity;
-import com.kodemore.preference.KmPreferenceActivityHelper;
+import com.kodemore.preference.activity.KmPreferenceActivity;
+import com.kodemore.preference.activity.KmPreferenceActivityHelper;
+import com.kodemore.preference.builder.KmBooleanPreferenceBuilder;
 import com.kodemore.stub.MyPreferenceWrapper;
 
 /**
@@ -30,10 +30,10 @@ public class MyPreferencesActivity
     //# preferences
     //##################################################//
 
-    private KmBooleanComponentBuilder newSplashPreference()
+    private KmBooleanPreferenceBuilder newSplashPreference()
     {
-        KmBooleanComponentBuilder e;
-        e = new KmBooleanComponentBuilder();
+        KmBooleanPreferenceBuilder e;
+        e = new KmBooleanPreferenceBuilder();
         e.setKey(MyPreferenceWrapper.SPLASH_KEY);
         e.setDefaultValue(MyPreferenceWrapper.SPLASH_DEFAULT);
         e.setTitle("Enable splash screen?");

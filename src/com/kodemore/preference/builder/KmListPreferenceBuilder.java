@@ -20,7 +20,7 @@
   THE SOFTWARE.
  */
 
-package com.kodemore.preference;
+package com.kodemore.preference.builder;
 
 import java.util.List;
 
@@ -34,8 +34,11 @@ import com.kodemore.collection.KmList;
 import com.kodemore.utility.KmCodedEnumIF;
 import com.kodemore.utility.Kmu;
 
-public class KmListComponentBuilder
-    extends KmAbstractComponentBuilder<String>
+/**
+ * See superclass.
+ */
+public class KmListPreferenceBuilder
+    extends KmPreferenceBuilder<String>
 {
     //##################################################
     //# variables
@@ -47,7 +50,7 @@ public class KmListComponentBuilder
     //# constructor
     //##################################################
 
-    public KmListComponentBuilder()
+    public KmListPreferenceBuilder()
     {
         super();
         _options = new KmList<KmAssociation<String,String>>();

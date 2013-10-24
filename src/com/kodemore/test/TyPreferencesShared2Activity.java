@@ -22,7 +22,7 @@
 
 package com.kodemore.test;
 
-import com.kodemore.preference.KmSimplePreferenceWrapper;
+import com.kodemore.preference.wrapper.KmSimplePreferenceWrapper;
 
 /**
  * Demonstrate preferences that are shared between the activities.

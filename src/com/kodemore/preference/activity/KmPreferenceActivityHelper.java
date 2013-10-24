@@ -20,37 +20,51 @@
   THE SOFTWARE.
  */
 
-package com.kodemore.preference;
+package com.kodemore.preference.activity;
 
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
+import android.app.Activity;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 
-public class KmStringComponentBuilder
-    extends KmAbstractTextComponentBuilder<String>
+import com.kodemore.preference.builder.KmPreferenceBuilder;
+
+public class KmPreferenceActivityHelper
 {
+    //##################################################
+    //# vairables
+    //##################################################
+
+    private PreferenceActivity _activity;
+    private PreferenceScreen   _screen;
+
     //##################################################
     //# constructor
     //##################################################
 
-    public KmStringComponentBuilder()
+    public KmPreferenceActivityHelper(PreferenceActivity activity, String name)
     {
-        super();
+        PreferenceManager mgr;
+        mgr = activity.getPreferenceManager();
+        mgr.setSharedPreferencesName(name);
+        mgr.setSharedPreferencesMode(Activity.MODE_PRIVATE);
+
+        _activity = activity;
+        _screen = mgr.createPreferenceScreen(activity);
     }
 
     //##################################################
-    //# accessing
+    //# setup
     //##################################################
 
-    @Override
-    public String getValue(SharedPreferences pp)
+    public void add(KmPreferenceBuilder<?> e)
     {
-        return getRawValue(pp);
+        e.installOn(_screen);
     }
 
-    @Override
-    public void setValue(Editor edit, String value)
+    public void finish()
     {
-        setRawValue(edit, value);
+        _activity.setPreferenceScreen(_screen);
     }
 
 }
