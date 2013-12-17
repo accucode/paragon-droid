@@ -22,27 +22,29 @@
 
 package com.kodemore.contact;
 
-public class KmContactEmail
+import com.kodemore.time.KmDate;
+
+public class KmContactEvent
 {
     //##################################################
     //# variables
-    //################################################## 
+    //##################################################
 
     private String             _rawContactId;
-    private boolean            _primary;
-    private boolean            _superPrimary;
-    private String             _address;
-    private KmContactEmailType _type;
+    private KmDate             _startDate;
+    private String             _startDateString;
+    private KmContactEventType _type;
 
     /**
-     * This holds the label of a custom email type
+     * This holds the label of a custom event type
      */
     private String             _label;
 
     //##################################################
-    //# constructor
+    //# constructors
     //##################################################
 
+    public KmContactEvent()
     {
         // none
     }
@@ -61,66 +63,44 @@ public class KmContactEmail
         _rawContactId = e;
     }
 
-    public boolean getPrimary()
+    public KmDate getStartDate()
     {
-        return _primary;
+        return _startDate;
     }
 
-    public void setPrimary(boolean e)
+    public void setStartDate(KmDate e)
     {
-        _primary = e;
+        _startDate = e;
     }
 
-    public boolean isPrimary()
+    public boolean hasStartDate()
     {
-        return getPrimary();
+        return getStartDate() != null;
     }
 
-    public boolean getSuperPrimary()
+    public String getStartDateString()
     {
-        return _superPrimary;
+        return _startDateString;
     }
 
-    public void setSuperPrimary(boolean e)
+    public void setStartDateString(String e)
     {
-        _superPrimary = e;
+        _startDateString = e;
     }
 
-    public boolean isSuperPrimary()
+    public boolean hasStartDateString()
     {
-        return getSuperPrimary();
+        return getStartDateString() != null;
     }
 
-    public String getAddress()
-    {
-        return _address;
-    }
-
-    public void setAddress(String e)
-    {
-        _address = e;
-    }
-
-    public KmContactEmailType getType()
+    public KmContactEventType getType()
     {
         return _type;
     }
 
-    public String getTypeName()
-    {
-        return hasType()
-            ? getType().name()
-            : null;
-    }
-
-    public void setType(KmContactEmailType e)
+    public void setType(KmContactEventType e)
     {
         _type = e;
-    }
-
-    public boolean hasType()
-    {
-        return getType() != null;
     }
 
     public String getLabel()
@@ -137,35 +117,43 @@ public class KmContactEmail
     //# convenience
     //##################################################
 
-    public void setTypeHome()
+    public void setTypeAnniversary()
     {
-        setType(KmContactEmailType.HOME);
+        setType(KmContactEventType.ANNIVERSARY);
+        setLabel(null);
     }
 
-    public void setTypeMobile()
+    public void setTypeBirthday()
     {
-        setType(KmContactEmailType.MOBILE);
+        setType(KmContactEventType.BIRTHDAY);
+        setLabel(null);
     }
 
     public void setTypeOther()
     {
-        setType(KmContactEmailType.OTHER);
-    }
-
-    public void setTypeWork()
-    {
-        setType(KmContactEmailType.WORK);
+        setType(KmContactEventType.OTHER);
+        setLabel(null);
     }
 
     public void setTypeCustom()
     {
-        setType(KmContactEmailType.CUSTOM);
+        setType(KmContactEventType.CUSTOM);
     }
 
     public void setTypeCustom(String label)
     {
         setTypeCustom();
         setLabel(label);
+    }
+
+    public String getTypeName()
+    {
+        return getType().name();
+    }
+
+    public int getTypeCode()
+    {
+        return getType().getCode();
     }
 
     public void setTypeFromInt(Integer i)
@@ -176,7 +164,7 @@ public class KmContactEmail
             return;
         }
 
-        for ( KmContactEmailType e : KmContactEmailType.values() )
+        for ( KmContactEventType e : KmContactEventType.values() )
             if ( i == e.getCode() )
             {
                 setType(e);
@@ -187,26 +175,31 @@ public class KmContactEmail
     }
 
     /**
-     * Convenience method to set this value directly from the android's contacts contract
-     * table.
+     * review_aaron attempt to parse date
      * 
-     * The android table stores this value as an Integer, if set, non-0 means true.   
+     * Convenience method that will attempt to parse the string that contains the date.
+     * The original string will be stored in the _startDateString field. 
      */
-    public void setPrimaryFromInt(Integer e)
+    public void setStartDateFromString(String e)
     {
-        boolean b = e != null && e != 0;
-        setPrimary(b);
+        KmDate d;
+        d = KmContactDateParser.parseDate(e);
+        setStartDate(d);
+
+        if ( d == null )
+            setStartDateString(e);
     }
 
     /**
-     * Convenience method to set this value directly from the android's contacts contract
-     * table.
-     * 
-     * The android table stores this value as an Integer, if set, non-0 means true.   
+     * If a date was successfully parsed, this will return the date's formatted string.  If
+     * a date was not successfully parsed, this will return the raw date string pulled from 
+     * the android contact data table.  
      */
-    public void setSuperPrimaryFromInt(Integer e)
+    public String formatStartDate()
     {
-        boolean b = e != null && e != 0;
-        setSuperPrimary(b);
+        if ( hasStartDate() )
+            return getStartDate().format_mm_dd_yyyy();
+
+        return getStartDateString();
     }
 }

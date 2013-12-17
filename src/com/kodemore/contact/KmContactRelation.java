@@ -22,25 +22,26 @@
 
 package com.kodemore.contact;
 
-public class KmContactPhone
+public class KmContactRelation
 {
     //##################################################
     //# variables
     //##################################################
 
-    private String             _rawContactId;
-    private boolean            _primary;
-    private boolean            _superPrimary;
-    private String             _number;
+    private String                _rawContactId;
+    private String                _name;
+    private KmContactRelationType _type;
 
-    private KmContactPhoneType _type;
-    private String             _label;
+    /**
+     * This holds the label of custom relation type
+     */
+    private String                _label;
 
     //##################################################
-    //# constructor
+    //# constructors
     //##################################################
 
-    public KmContactPhone()
+    public KmContactRelation()
     {
         // none
     }
@@ -59,66 +60,24 @@ public class KmContactPhone
         _rawContactId = e;
     }
 
-    public boolean getPrimary()
+    public String getName()
     {
-        return _primary;
+        return _name;
     }
 
-    public void setPrimary(boolean e)
+    public void setName(String e)
     {
-        _primary = e;
+        _name = e;
     }
 
-    public boolean isPrimary()
-    {
-        return getPrimary();
-    }
-
-    public boolean getSuperPrimary()
-    {
-        return _superPrimary;
-    }
-
-    public void setSuperPrimary(boolean e)
-    {
-        _superPrimary = e;
-    }
-
-    public boolean isSuperPrimary()
-    {
-        return getSuperPrimary();
-    }
-
-    public String getNumber()
-    {
-        return _number;
-    }
-
-    public void setNumber(String e)
-    {
-        _number = e;
-    }
-
-    public KmContactPhoneType getType()
+    public KmContactRelationType getType()
     {
         return _type;
     }
 
-    public String getTypeName()
-    {
-        return hasType()
-            ? getType().name()
-            : null;
-    }
-
-    public void setType(KmContactPhoneType e)
+    public void setType(KmContactRelationType e)
     {
         _type = e;
-    }
-
-    public boolean hasType()
-    {
-        return getType() != null;
     }
 
     public String getLabel()
@@ -135,6 +94,27 @@ public class KmContactPhone
     //# convenience
     //##################################################
 
+    public void setTypeCustom()
+    {
+        setType(KmContactRelationType.CUSTOM);
+    }
+
+    public void setTypeCustom(String e)
+    {
+        setTypeCustom();
+        setLabel(e);
+    }
+
+    public String getTypeName()
+    {
+        return getType().name();
+    }
+
+    public int getTypeCode()
+    {
+        return getType().getCode();
+    }
+
     public void setTypeFromInt(Integer i)
     {
         if ( i == null )
@@ -143,7 +123,7 @@ public class KmContactPhone
             return;
         }
 
-        for ( KmContactPhoneType e : KmContactPhoneType.values() )
+        for ( KmContactRelationType e : KmContactRelationType.values() )
             if ( i == e.getCode() )
             {
                 setType(e);
@@ -151,29 +131,5 @@ public class KmContactPhone
             }
 
         setType(null);
-    }
-
-    /**
-     * Convenience method to set this value directly from the android's contacts contract
-     * table.
-     * 
-     * The android table stores this value as an Integer, if set, non-0 means true.   
-     */
-    public void setPrimaryFromInt(Integer e)
-    {
-        boolean b = e != null && e != 0;
-        setPrimary(b);
-    }
-
-    /**
-     * Convenience method to set this value directly from the android's contacts contract
-     * table.
-     * 
-     * The android table stores this value as an Integer, if set, non-0 means true.   
-     */
-    public void setSuperPrimaryFromInt(Integer e)
-    {
-        boolean b = e != null && e != 0;
-        setSuperPrimary(b);
     }
 }

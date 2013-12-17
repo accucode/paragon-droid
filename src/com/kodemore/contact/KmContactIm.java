@@ -22,96 +22,55 @@
 
 package com.kodemore.contact;
 
-public class KmContactPhone
+public class KmContactIm
 {
     //##################################################
     //# variables
     //##################################################
 
-    private String             _rawContactId;
-    private boolean            _primary;
-    private boolean            _superPrimary;
-    private String             _number;
+    private String              _data;
+    private KmContactImType     _type;
 
-    private KmContactPhoneType _type;
-    private String             _label;
+    /**
+     * This holds the label of a custom IM type
+     */
+    private String              _label;
+    private KmContactImProtocol _protocol;
+
+    /**
+     * This holds the label of a custom IM protocol
+     */
+    private String              _customProtocol;
 
     //##################################################
     //# constructor
     //##################################################
 
-    public KmContactPhone()
+    public KmContactIm()
     {
-        // none
+        //none
     }
 
     //##################################################
     //# accessing
     //##################################################
 
-    public String getRawContactId()
+    public String getData()
     {
-        return _rawContactId;
+        return _data;
     }
 
-    public void setRawContactId(String e)
+    public void setData(String e)
     {
-        _rawContactId = e;
+        _data = e;
     }
 
-    public boolean getPrimary()
-    {
-        return _primary;
-    }
-
-    public void setPrimary(boolean e)
-    {
-        _primary = e;
-    }
-
-    public boolean isPrimary()
-    {
-        return getPrimary();
-    }
-
-    public boolean getSuperPrimary()
-    {
-        return _superPrimary;
-    }
-
-    public void setSuperPrimary(boolean e)
-    {
-        _superPrimary = e;
-    }
-
-    public boolean isSuperPrimary()
-    {
-        return getSuperPrimary();
-    }
-
-    public String getNumber()
-    {
-        return _number;
-    }
-
-    public void setNumber(String e)
-    {
-        _number = e;
-    }
-
-    public KmContactPhoneType getType()
+    public KmContactImType getType()
     {
         return _type;
     }
 
-    public String getTypeName()
-    {
-        return hasType()
-            ? getType().name()
-            : null;
-    }
-
-    public void setType(KmContactPhoneType e)
+    public void setType(KmContactImType e)
     {
         _type = e;
     }
@@ -119,6 +78,13 @@ public class KmContactPhone
     public boolean hasType()
     {
         return getType() != null;
+    }
+
+    public String getTypeName()
+    {
+        return hasType()
+            ? getType().name()
+            : null;
     }
 
     public String getLabel()
@@ -131,10 +97,45 @@ public class KmContactPhone
         _label = e;
     }
 
+    public KmContactImProtocol getProtocol()
+    {
+        return _protocol;
+    }
+
+    public void setProtocol(KmContactImProtocol e)
+    {
+        _protocol = e;
+    }
+
+    public boolean hasProtocol()
+    {
+        return getProtocol() != null;
+    }
+
+    public String getProtocolName()
+    {
+        return hasProtocol()
+            ? getProtocol().name()
+            : null;
+    }
+
+    public String getCustomProtocol()
+    {
+        return _customProtocol;
+    }
+
+    public void setCustomProtocol(String e)
+    {
+        _customProtocol = e;
+    }
+
     //##################################################
-    //# convenience
+    //# conveniece
     //##################################################
 
+    /**
+     * Convenience method to set this value directly from the Android contact data table
+     */
     public void setTypeFromInt(Integer i)
     {
         if ( i == null )
@@ -143,7 +144,7 @@ public class KmContactPhone
             return;
         }
 
-        for ( KmContactPhoneType e : KmContactPhoneType.values() )
+        for ( KmContactImType e : KmContactImType.values() )
             if ( i == e.getCode() )
             {
                 setType(e);
@@ -154,26 +155,23 @@ public class KmContactPhone
     }
 
     /**
-     * Convenience method to set this value directly from the android's contacts contract
-     * table.
-     * 
-     * The android table stores this value as an Integer, if set, non-0 means true.   
+     * Convenience method to set this value directly from the Android contact data table
      */
-    public void setPrimaryFromInt(Integer e)
+    public void setProtocolFromInt(Integer i)
     {
-        boolean b = e != null && e != 0;
-        setPrimary(b);
-    }
+        if ( i == null )
+        {
+            setType(null);
+            return;
+        }
 
-    /**
-     * Convenience method to set this value directly from the android's contacts contract
-     * table.
-     * 
-     * The android table stores this value as an Integer, if set, non-0 means true.   
-     */
-    public void setSuperPrimaryFromInt(Integer e)
-    {
-        boolean b = e != null && e != 0;
-        setSuperPrimary(b);
+        for ( KmContactImProtocol e : KmContactImProtocol.values() )
+            if ( i == e.getCode() )
+            {
+                setProtocol(e);
+                return;
+            }
+
+        setType(null);
     }
 }

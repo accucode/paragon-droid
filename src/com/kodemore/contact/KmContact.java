@@ -22,20 +22,54 @@
 
 package com.kodemore.contact;
 
-import com.kodemore.collection.KmList;
+import android.graphics.Bitmap;
 
+import com.kodemore.collection.KmList;
+import com.kodemore.time.KmTimestamp;
+
+/**
+ * This is the aggregate contact corresponding to Android's ContactsContract.Contact
+ * which is comprised of RawContacts.  For more information see http://goo.gl/y3bZCU
+ * 
+ * Information we currently access:
+ *      - The Contact ID
+ *      - The contact display name
+ *      - The Raw Contacts
+ *      - The Contat's display name
+ *      - Starred
+ *      - Has phone number
+ *      - Times contacted
+ *      - Last time contacted
+ *      - Send to voicemail (auto send to voicemail)
+ *      - Photo
+ *      - Custom ringtone
+ *      
+ * (Most of these values are aggregated from raw contacts)
+ * Information we can access, but don't right now:
+ *      - Contact IM presence (online status, which service, etc.)
+ */
 public class KmContact
 {
     //##################################################
     //# variables
     //##################################################
 
-    private String                   _id;
-    private String                   _displayName;
+    private String               _id;
+    private String               _displayName;
 
-    private KmList<KmContactEmail>   _emails;
-    private KmList<KmContactPhone>   _phones;
-    private KmList<KmContactAddress> _addresses;
+    private boolean              _starred;
+    private boolean              _hasPhoneNumber;
+
+    private int                  _timesContacted;
+    private KmTimestamp          _lastTimeContacted;
+
+    private boolean              _sendToVoicemail;
+
+    private Bitmap               _photo;
+
+    private String               _customRingtonUri;
+
+    private KmList<KmRawContact> _rawContacts;
 
     //##################################################
     //# constructor
@@ -78,63 +112,183 @@ public class KmContact
         return _displayName.toLowerCase().trim().contains(s.toLowerCase());
     }
 
-    public KmList<KmContactEmail> getEmails()
+    public boolean getStarred()
     {
-        return _emails;
+        return _starred;
     }
 
-    public void setEmails(KmList<KmContactEmail> v)
+    public void setStarred(boolean e)
     {
-        _emails = v;
+        _starred = e;
     }
+
+    /**
+     * Convenience method to set value directly from android Contacts table.
+     *
+     * The android table stores this value as an Integer where 1 is true, 0
+     * is false.
+     */
+    public void setStarredFromInt(Integer e)
+    {
+        boolean b = e != null && e == 1;
+        setStarred(b);
+    }
+
+    public boolean getHasPhoneNumber()
+    {
+        return _hasPhoneNumber;
+    }
+
+    public void setHasPhoneNumber(boolean e)
+    {
+        _hasPhoneNumber = e;
+    }
+
+    /**
+     * Convenience method to set value directly from android Contacts table.
+     *
+     * The android table stores this value as an Integer where 1 is true, 0
+     * is false.
+     */
+    public void setHasPhoneNumberFromInt(Integer e)
+    {
+        boolean b = e != null && e == 1;
+        setHasPhoneNumber(b);
+    }
+
+    public int getTimesContacted()
+    {
+        return _timesContacted;
+    }
+
+    public void setTimesContacted(int e)
+    {
+        _timesContacted = e;
+    }
+
+    public KmTimestamp getLastTimeContacted()
+    {
+        return _lastTimeContacted;
+    }
+
+    public void setLastTimeContacted(KmTimestamp e)
+    {
+        _lastTimeContacted = e;
+    }
+
+    /**
+     * Convenience method to create set value directly from android Contacts table.
+     *
+     * The android table stored this value as the number of miliseconds since 1970
+     */
+    public void setLastTimeContactedFromLong(Long e)
+    {
+        if ( e == null )
+        {
+            setLastTimeContacted(null);
+            return;
+        }
+
+        KmTimestamp ts = KmTimestamp.createFromMsSince1970(e);
+        setLastTimeContacted(ts);
+    }
+
+    public boolean getSendToVoicemail()
+    {
+        return _sendToVoicemail;
+    }
+
+    public void setSendToVoicemail(boolean e)
+    {
+        _sendToVoicemail = e;
+    }
+
+    /**
+     * Convenience method to set value directly from android Contacts table.
+     *
+     * The android table stores this value as an Integer where 1 is true, 0
+     * is false.
+     */
+    public void setSendToVoicemailFromIn(Integer e)
+    {
+        boolean b = e != null && e == 1;
+        setSendToVoicemail(b);
+    }
+
+    public Bitmap getPhoto()
+    {
+        return _photo;
+    }
+
+    public void setPhoto(Bitmap e)
+    {
+        _photo = e;
+    }
+
+    public String getCustomRingtonUri()
+    {
+        return _customRingtonUri;
+    }
+
+    public void setCustomRingtonUri(String e)
+    {
+        _customRingtonUri = e;
+    }
+
+    public KmList<KmRawContact> getRawContacts()
+    {
+        return _rawContacts;
+    }
+
+    public void setRawContacts(KmList<KmRawContact> e)
+    {
+        _rawContacts = e;
+    }
+
+    //##################################################
+    //# convenience
+    //##################################################
 
     public KmList<KmContactPhone> getPhones()
     {
-        return _phones;
-    }
+        KmList<KmContactPhone> v = new KmList<KmContactPhone>();
 
-    public void setPhones(KmList<KmContactPhone> v)
-    {
-        _phones = v;
+        for ( KmRawContact e : getRawContacts() )
+            v.addAll(e.getPhones());
+
+        return v;
     }
 
     public KmList<KmContactAddress> getAddresses()
     {
-        return _addresses;
+        KmList<KmContactAddress> v;
+        v = new KmList<KmContactAddress>();
+
+        for ( KmRawContact e : getRawContacts() )
+            v.addAll(e.getAddresses());
+
+        return v;
     }
 
-    public void setAddresses(KmList<KmContactAddress> v)
+    public KmList<KmContactEmail> getEmails()
     {
-        _addresses = v;
+        KmList<KmContactEmail> v;
+        v = new KmList<KmContactEmail>();
+
+        for ( KmRawContact e : getRawContacts() )
+            v.addAll(e.getEmails());
+
+        return v;
     }
 
-    //##################################################
-    //# abstract accessing
-    //##################################################
-
-    public String getPrimaryPhoneNumber()
+    public KmList<Bitmap> getPhotos()
     {
-        KmContactPhone e = getPrimaryPhone();
-        return e == null
-            ? null
-            : e.getNumber();
+        KmList<Bitmap> v;
+        v = new KmList<Bitmap>();
+
+        for ( KmRawContact e : getRawContacts() )
+            v.add(e.getPhoto());
+
+        return v;
     }
-
-    public KmContactPhone getPrimaryPhone()
-    {
-        KmList<KmContactPhone> v = getPhones();
-        if ( v == null )
-            return null;
-
-        for ( KmContactPhone e : v )
-            if ( e.isSuperPrimary() )
-                return e;
-
-        for ( KmContactPhone e : v )
-            if ( e.isPrimary() )
-                return e;
-
-        return null;
-    }
-
 }

@@ -202,6 +202,27 @@ public class KmSqlCursor
     }
 
     //##################################################
+    //# blob 
+    //##################################################
+
+    public byte[] getBlobAt(KmSqlColumnIF col)
+    {
+        return getBlobAt(col.getName());
+    }
+
+    public byte[] getBlobAt(String col)
+    {
+        return getBlobAt(toColumnIndex(col));
+    }
+
+    private byte[] getBlobAt(int col)
+    {
+        return isNullAt(col)
+            ? null
+            : getInner().getBlob(col);
+    }
+
+    //##################################################
     //# string columns
     //##################################################
 

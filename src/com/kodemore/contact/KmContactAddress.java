@@ -28,17 +28,24 @@ public class KmContactAddress
     //# variables
     //##################################################
 
-    private String  _id;
-    private String  _displayName;
-    private Integer _typeCode;
-    private String  _typeName;
+    private String               _rawContactId;
+    private boolean              _primary;
+    private boolean              _superPrimary;
+    private KmContactAddressType _type;
 
-    private String  _poBox;
-    private String  _street;
-    private String  _city;
-    private String  _region;
-    private String  _postCode;
-    private String  _country;
+    /**
+     * This holds the label of a custom address type
+     */
+    private String               _label;
+
+    private String               _formattedAddress;
+
+    private String               _poBox;
+    private String               _street;
+    private String               _city;
+    private String               _region;
+    private String               _postCode;
+    private String               _country;
 
     //##################################################
     //# constructor
@@ -53,49 +60,91 @@ public class KmContactAddress
     //# accessing (general)
     //##################################################
 
-    public String getId()
+    public String getRawContactId()
     {
-        return _id;
+        return _rawContactId;
     }
 
-    public void setId(String e)
+    public void setRawContactId(String e)
     {
-        _id = e;
+        _rawContactId = e;
     }
 
-    public String getDisplayName()
+    public boolean getPrimary()
     {
-        return _displayName;
+        return _primary;
     }
 
-    public void setDisplayName(String e)
+    public void setPrimary(boolean e)
     {
-        _displayName = e;
+        _primary = e;
     }
 
-    public Integer getTypeCode()
+    public boolean isPrimary()
     {
-        return _typeCode;
+        return getPrimary();
     }
 
-    public void setTypeCode(Integer e)
+    public boolean getSuperPrimary()
     {
-        _typeCode = e;
+        return _superPrimary;
+    }
+
+    public void setSuperPrimary(boolean e)
+    {
+        _superPrimary = e;
+    }
+
+    public boolean isSuperPrimary()
+    {
+        return getSuperPrimary();
+    }
+
+    public KmContactAddressType getType()
+    {
+        return _type;
     }
 
     public String getTypeName()
     {
-        return _typeName;
+        return hasType()
+            ? getType().name()
+            : null;
     }
 
-    public void setTypeName(String e)
+    public void setType(KmContactAddressType e)
     {
-        _typeName = e;
+        _type = e;
+    }
+
+    public boolean hasType()
+    {
+        return getType() != null;
+    }
+
+    public String getLabel()
+    {
+        return _label;
+    }
+
+    public void setLabel(String e)
+    {
+        _label = e;
     }
 
     //##################################################
     //# accessing (fields)
     //##################################################
+
+    public String getFormattedAddress()
+    {
+        return _formattedAddress;
+    }
+
+    public void setFormattedAddress(String e)
+    {
+        _formattedAddress = e;
+    }
 
     public String getPoBox()
     {
@@ -132,6 +181,11 @@ public class KmContactAddress
         return _region;
     }
 
+    public String getState()
+    {
+        return getRegion();
+    }
+
     public void setRegion(String e)
     {
         _region = e;
@@ -155,5 +209,80 @@ public class KmContactAddress
     public void setCountry(String e)
     {
         _country = e;
+    }
+
+    //##################################################
+    //# convenience
+    //##################################################
+
+    public void setTypeHome()
+    {
+        setType(KmContactAddressType.HOME);
+    }
+
+    public void setTypeOther()
+    {
+        setType(KmContactAddressType.OTHER);
+    }
+
+    public void setTypeWork()
+    {
+        setType(KmContactAddressType.WORK);
+    }
+
+    public void setTypeCustom()
+    {
+        setType(KmContactAddressType.CUSTOM);
+    }
+
+    public void setTypeCustom(String label)
+    {
+        setTypeCustom();
+        setLabel(label);
+    }
+
+    /**
+     * Convenience method to set this value directly from the android's contacts data table
+     */
+    public void setTypeFromInt(Integer i)
+    {
+        if ( i == null )
+        {
+            setType(null);
+            return;
+        }
+
+        for ( KmContactAddressType e : KmContactAddressType.values() )
+            if ( i == e.getCode() )
+            {
+                setType(e);
+                return;
+            }
+
+        setType(null);
+    }
+
+    /**
+     * Convenience method to set this value directly from the android's contacts contract
+     * table.
+     * 
+     * The android table stores this value as an Integer, if set, non-0 means true.   
+     */
+    public void setPrimaryFromInt(Integer e)
+    {
+        boolean b = e != null && e != 0;
+        setPrimary(b);
+    }
+
+    /**
+     * Convenience method to set this value directly from the android's contacts contract
+     * table.
+     * 
+     * The android table stores this value as an Integer, if set, non-0 means true.   
+     */
+    public void setSuperPrimaryFromInt(Integer e)
+    {
+        boolean b = e != null && e != 0;
+        setSuperPrimary(b);
     }
 }

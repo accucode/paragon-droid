@@ -62,7 +62,7 @@ public class KmTwoLineView
         _textView1 = addText();
         _textView1.setTextSize(20);
         _textView1.getHelper().setBold();
-        _textView1.getHelper().setTextColor(Color.WHITE);
+        _textView1.getHelper().setTextColor(Color.BLACK);
         _textView1.getHelper().setPadding(10);
         _textView1.getHelper().setPaddingBottom(0);
 
