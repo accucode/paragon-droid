@@ -73,6 +73,7 @@ public class TyRegistry
         v.add(TyButtonActivity.class);
         v.add(TyButtonDepthActivity.class);
         v.add(TyCalculatorActivity.class);
+        v.add(TyCallLogsActivity.class);
         v.add(TyCheckList1Activity.class);
         v.add(TyCheckList2Activity.class);
         v.add(TyClockActivity.class);
@@ -143,6 +144,7 @@ public class TyRegistry
         v.add(TyNumberPadActivity.class);
         v.add(TyOAuthActivity.class);
         v.add(TyOrientationActivity.class);
+        v.add(TyPhoneStateActivity.class);
         v.add(TyPhotoActivity.class);
         v.add(TyPopupWindowActivity.class);
         v.add(TyPreferences1Activity.class);

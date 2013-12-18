@@ -74,6 +74,7 @@
         <activity android:name="com.kodemore.test.TyButtonActivity" />
         <activity android:name="com.kodemore.test.TyButtonDepthActivity" />
         <activity android:name="com.kodemore.test.TyCalculatorActivity" />
+        <activity android:name="com.kodemore.test.TyCallLogsActivity" />
         <activity android:name="com.kodemore.test.TyCheckList1Activity" />
         <activity android:name="com.kodemore.test.TyCheckList2Activity" />
         <activity android:name="com.kodemore.test.TyClockActivity" />
@@ -146,6 +147,7 @@
         <activity android:name="com.kodemore.test.TyNumberPadActivity" />
         <activity android:name="com.kodemore.test.TyOAuthActivity" />
         <activity android:name="com.kodemore.test.TyOrientationActivity" />
+        <activity android:name="com.kodemore.test.TyPhoneStateActivity" />
         <activity android:name="com.kodemore.test.TyPhotoActivity" />
         <activity android:name="com.kodemore.test.TyPopupWindowActivity" />
         <activity android:name="com.kodemore.test.TyPreferences1Activity" />
