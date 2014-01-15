@@ -86,9 +86,6 @@ public class TyMainActivity
         list.setFastScrollEnabled();
         list.setAutoSave();
 
-        list.setFastScrollEnabled(false);
-        list.setFastScrollEnabled(true);
-
         KmFilterManager<Class<? extends Activity>> mgr;
         mgr = newFilterManager();
         mgr.setArrayAdapter(list.getAdapter());
