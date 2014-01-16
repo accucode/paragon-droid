@@ -113,6 +113,7 @@
         <activity android:name="com.kodemore.test.TyHtmlZoomActivity" />
         <activity android:name="com.kodemore.test.TyImageButtonActivity" />
         <activity android:name="com.kodemore.test.TyInigmaScanActivity" />
+        <activity android:name="com.kodemore.test.TyInstallPackageActivity" />
         <activity android:name="com.kodemore.test.TyJsonActivity" />
         <activity android:name="com.kodemore.test.TyLaunchGoogleStoreActivity" />
         <activity android:name="com.kodemore.test.TyLayout1Activity" />
@@ -196,6 +197,7 @@
         <activity android:name="com.kodemore.test.TyTriStateCheckBoxActivity" />
         <activity android:name="com.kodemore.test.TyTriStateCheckBox2Activity" />
         <activity android:name="com.kodemore.test.TyUriActivity" />
+        <activity android:name="com.kodemore.test.TyUninstallPackageActivity" />
         <activity android:name="com.kodemore.test.TyUnitParserActivity" />
         <activity android:name="com.kodemore.test.TyUnregisteredActivity" />
         <activity android:name="com.kodemore.test.TyUserListActivity" />

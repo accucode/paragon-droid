@@ -813,6 +813,7 @@ public abstract class KmActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
+
         ui().handleResultCallback(requestCode, resultCode, data);
     }
 

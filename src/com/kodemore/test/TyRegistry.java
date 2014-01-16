@@ -110,6 +110,7 @@ public class TyRegistry
         v.add(TyHtmlZoomActivity.class);
         v.add(TyImageButtonActivity.class);
         v.add(TyInigmaScanActivity.class);
+        v.add(TyInstallPackageActivity.class);
         v.add(TyIntegerServiceActivity.class);
         v.add(TyJsonActivity.class);
         v.add(TyLayout1Activity.class);
@@ -191,6 +192,7 @@ public class TyRegistry
         v.add(TyTreeActivity.class);
         v.add(TyTriStateCheckBoxActivity.class);
         v.add(TyTriStateCheckBox2Activity.class);
+        v.add(TyUninstallPackageActivity.class);
         v.add(TyUnregisteredActivity.class);
         v.add(TyUnitParserActivity.class);
         v.add(TyUriActivity.class);

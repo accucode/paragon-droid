@@ -214,6 +214,7 @@ public class KmArrayAdapter<K>
         for ( int i = 0; i < n; i++ )
         {
             Section section = v.get(i);
+            // review_aaron: WTF?
             if ( section.letter.compareTo(letter) <= 0 )
                 return i;
         }
