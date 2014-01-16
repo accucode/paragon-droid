@@ -92,6 +92,7 @@
         <activity android:name="com.kodemore.test.TyDialogSizePositionActivity" />
         <activity android:name="com.kodemore.test.TyDialogWithMultilineTextFieldActivity" />
         <activity android:name="com.kodemore.test.TyDisplayInfoActivity" />
+        <activity android:name="com.kodemore.test.TyDownloadFileActivity" />
         <activity android:name="com.kodemore.test.TyDpActivity" />
         <activity android:name="com.kodemore.test.TyDrawableActivity" />
         <activity android:name="com.kodemore.test.TyDrawOnViewActivity" />

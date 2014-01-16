@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -39,7 +40,9 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
@@ -3261,6 +3264,42 @@ public class Kmu
         {
             closeSafely(in);
             closeSafely(out);
+        }
+    }
+
+    /**
+     * review_lucas (steve) this is the download a file utility
+     */
+    public static void downloadFileFromUrl(String urlString, String fileName)
+    {
+        try
+        {
+            URL url = new URL(urlString);
+
+            URLConnection ucon = url.openConnection();
+
+            File sdcard = Environment.getExternalStorageDirectory();
+            File file = new File(sdcard, fileName);
+
+            FileOutputStream fileOutput = new FileOutputStream(file);
+            InputStream inputStream = ucon.getInputStream();
+
+            byte[] buffer = new byte[1024];
+            int bufferLength = 0;
+
+            while ( (bufferLength = inputStream.read(buffer)) > 0 )
+                fileOutput.write(buffer, 0, bufferLength);
+
+            fileOutput.close();
+            //            toast(fileName + " Successfully downloaded");
+        }
+        catch ( MalformedURLException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
         }
     }
 

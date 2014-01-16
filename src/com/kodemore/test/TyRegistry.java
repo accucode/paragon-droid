@@ -89,6 +89,7 @@ public class TyRegistry
         v.add(TyDialogSizePositionActivity.class);
         v.add(TyDialogWithMultilineTextFieldActivity.class);
         v.add(TyDisplayInfoActivity.class);
+        v.add(TyDownloadFileActivity.class);
         v.add(TyDpActivity.class);
         v.add(TyDrawableActivity.class);
         v.add(TyDrawOnViewActivity.class);
